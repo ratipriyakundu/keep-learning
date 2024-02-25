@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/keep-learning/static/css/main.76066428.css",
+    "main.js": "/keep-learning/static/js/main.60285720.js",
+    "index.html": "/keep-learning/index.html",
+    "main.76066428.css.map": "/keep-learning/static/css/main.76066428.css.map",
+    "main.60285720.js.map": "/keep-learning/static/js/main.60285720.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.76066428.css",
+    "static/js/main.60285720.js"
+  ]
+}
