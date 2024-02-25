@@ -1,0 +1,18 @@
+.file-input-label {
+  display: inline-block;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #647282;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid #8e8e8e;
+  /* visibility: hidden; */
+}
+/* Style for hovering effect */
+.file-input-label:hover {
+  background-color: #5c6a7a;
+  color: #ffffff;
+  border-color: #dedede;
+}
