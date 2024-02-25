@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.76066428.css",
-    "main.js": "/static/js/main.60285720.js",
-    "index.html": "/index.html",
-    "main.76066428.css.map": "/static/css/main.76066428.css.map",
-    "main.60285720.js.map": "/static/js/main.60285720.js.map"
+    "main.css": "https://ratipriyakundu.github.io/keep-learning/static/css/main.76066428.css",
+    "main.js": "https://ratipriyakundu.github.io/keep-learning/static/js/main.60285720.js",
+    "index.html": "https://ratipriyakundu.github.io/keep-learning/index.html",
+    "main.76066428.css.map": "https://ratipriyakundu.github.io/keep-learning/static/css/main.76066428.css.map",
+    "main.60285720.js.map": "https://ratipriyakundu.github.io/keep-learning/static/js/main.60285720.js.map"
   },
   "entrypoints": [
     "static/css/main.76066428.css",
