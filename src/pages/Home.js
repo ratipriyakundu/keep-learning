@@ -12,7 +12,6 @@ export default function Home() {
 
   const { PostRequest } = useHttp();
   const [courseLoading, setCourseLoading] = useState(false);
-  const [BannerData, setBannerData] = useState({});
   const [coursesData, setCoursesData] = useState({});
   const [CallAPI, setCallAPI] = useState(false);
   const [filter, setFilter] = useState({
@@ -47,6 +46,7 @@ export default function Home() {
   useEffect(() => {
     getCourses();
   }, [filter, CallAPI]);
+  console.log(dataObject)
   return (
     <>
       {/* <!-- main content --> */}
@@ -55,18 +55,18 @@ export default function Home() {
         <div
           className="banner-slider"
           style={{
-            backgroundImage: `url(${HOME + BannerData.image})`,
+            backgroundImage: `url(${dataObject.home_banner && process.env.REACT_APP_HOME+dataObject.home_banner['image']})`,
           }}
         >
           <div className="container-fluid">
             <div className="row">
               <div className="col-4 Frame">
-                <img src={`${HOME + BannerData.logo}`} alt="img" />
+                <img src={dataObject.home_banner && process.env.REACT_APP_HOME+dataObject.home_banner['logo']} alt="img" />
               </div>
               <div className="col-5 Frame-content">
                 <div className="content">
-                  <h2>{BannerData.title}</h2>
-                  <p>{BannerData.description}</p>
+                  <h2>{dataObject.home_banner && dataObject.home_banner['title']}</h2>
+                  <p>{dataObject.home_banner && dataObject.home_banner['description']}</p>
                   {/* <!-- get start button --> */}
                   <a href="/" className="btn mt-5 getstartbtn">
                     GET STARTED

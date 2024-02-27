@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { DataContext } from "../App";
 
 export default function Footer() {
+	const dataObject = useContext(DataContext);
 	return (
 		<>
 			{/* <!-- footer --> */}
@@ -11,7 +13,7 @@ export default function Footer() {
 						<div className="col-md-4">
 							<div className="brand-info">
 								<div className="brand-logo">
-									<img alt="img" src="../img/Frame.png" width="60%" />
+									<img alt="Footer Brand Icon" src={dataObject.footer_logo && process.env.REACT_APP_HOME+dataObject.footer_logo} width="60%" />
 								</div>
 								<p className="mt-4">
 									{" "}
@@ -21,18 +23,18 @@ export default function Footer() {
 								<div className="icons2 mt-3">
 									<ul>
 										<li>
-											<Link to="#">
+											<Link to={dataObject.facebook_social_link && dataObject.facebook_social_link} target="_blank">
 												<i className="fa-brands fa-facebook"></i>
 											</Link>
 										</li>
 										<li>
-											<Link to="#">
+											<Link to={dataObject.instagram_social_link && dataObject.instagram_social_link} target="_blank">
 												<i className="fa-brands fa-instagram"></i>
 											</Link>
 										</li>
 										<li>
-											<Link to="#">
-												<i className="fa-brands fa-twitter"></i>
+											<Link to={dataObject.twitter_social_link && dataObject.twitter_social_link} target="_blank">
+												<i className="fa-brands fa-square-twitter"></i>
 											</Link>
 										</li>
 									</ul>
@@ -88,7 +90,7 @@ export default function Footer() {
 									<hr className="bar " />
 									<ul className="list">
 										<li className="p-0">
-											<Link to="#">
+											<Link to={'https://www.google.com/maps?q=' + dataObject.contact_address} target="_blank">
 												<div className="icon-box-footer">
 													<img
 														alt="img"
@@ -97,13 +99,13 @@ export default function Footer() {
 														width="auto"
 													/>
 													<span className="iccontent">
-														1PO Box, Collins Street West, Australia
+														{dataObject.contact_address && dataObject.contact_address}
 													</span>
 												</div>
 											</Link>
 										</li>
 										<li className="p-0">
-											<Link to="#">
+											<Link to={'mailto:' + dataObject.contact_email} target="_blank">
 												<div className="icon-box-footer">
 													<img
 														alt="img"
@@ -111,12 +113,14 @@ export default function Footer() {
 														src="../img/message.svg"
 														width="auto"
 													/>
-													<span className="iccontent">info@example.com</span>
+													<span className="iccontent">
+														{dataObject.contact_email && dataObject.contact_email}
+													</span>
 												</div>
 											</Link>
 										</li>
 										<li className="p-0">
-											<Link to="tel:+919876543210">
+											<Link to={'tel:' + dataObject.contact_phone} target="_blank">
 												<div className="icon-box-footer">
 													<img
 														alt="img"
@@ -124,7 +128,9 @@ export default function Footer() {
 														src="../img/call.svg"
 														width="auto"
 													/>
-													<span className="iccontent">+91 9876543210</span>
+													<span className="iccontent">
+														{dataObject.contact_phone && dataObject.contact_phone}
+													</span>
 												</div>
 											</Link>
 										</li>
