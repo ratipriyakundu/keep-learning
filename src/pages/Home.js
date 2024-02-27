@@ -11,8 +11,9 @@ export default function Home() {
   const token = localStorage.getItem("token");
 
   const { PostRequest } = useHttp();
+  const dataObject = useContext(DataContext);
   const [courseLoading, setCourseLoading] = useState(false);
-  const [coursesData, setCoursesData] = useState({});
+  const [coursesData, setCoursesData] = useState(dataObject.home_course_date && dataObject.home_course_date);
   const [CallAPI, setCallAPI] = useState(false);
   const [filter, setFilter] = useState({
     status: "1",
@@ -20,7 +21,6 @@ export default function Home() {
     popular: "",
     page: 1,
   });
-  const dataObject = useContext(DataContext);
   const getCourses = async () => {
     setCourseLoading(true);
     if (token) {
@@ -658,7 +658,7 @@ export default function Home() {
           </div>
         </div>
         {/* <!-- Why-klit end -->  */}
-        <Testmonial type="LEARNERS" />
+        <Testmonial type="LEARNERS" testimonials={dataObject.home_testimonials && dataObject.home_testimonials}/>
         {/* <!-- Become an instructor at klit --> */}
         <section className="becomeinstructor becomeinstructor-main">
           <div className="container">
