@@ -31,7 +31,10 @@ export default function Home() {
       }
     );
     if (data?.responseCode === 1) {
-      setBannerData(data?.responseData[0]);
+      setTimeout(function (){
+        setBannerData(data?.responseData[0]);
+      }, 1000); 
+      
     }
   };
 
@@ -42,14 +45,18 @@ export default function Home() {
         authorization: "Bearer " + token,
       });
       if (data?.responseCode === 1) {
-        setCoursesData(data?.responseData);
-        setCourseLoading(false);
+        setTimeout(function (){
+          setCoursesData(data?.responseData);
+          setCourseLoading(false);
+        }, 1000);
       }
     } else {
       const { data } = await PostRequest(API + "getCourses", filter, {});
       if (data?.responseCode === 1) {
-        setCoursesData(data?.responseData);
-        setCourseLoading(false);
+        setTimeout(function (){
+          setCoursesData(data?.responseData);
+          setCourseLoading(false);
+        }, 1000);
       }
     }
   };
