@@ -1,7 +1,9 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Link } from "react-router-dom";
+import {DataContext} from "../App";
 
 export default function Topbar() {
+	const dataObject = useContext(DataContext);
 	return (
 		<>
 			{/* <!-- top bar --> */}
@@ -11,17 +13,19 @@ export default function Topbar() {
 					<li>
 						<Link href="#">
 							<i className="fa-solid fa-location-dot"></i>
-							1PO Box, Collins Street West, Australia
+							{dataObject.contact_address && dataObject.contact_address}
 						</Link>
 					</li>
 					<li>
 						<Link href="#">
-							<i className="fa-solid fa-comment"></i>info@example.com
+							<i className="fa-solid fa-comment"></i>
+							{dataObject.contact_email && dataObject.contact_email}
 						</Link>
 					</li>
 					<li>
 						<Link href="#">
-							<i className="fa-solid fa-phone"></i>info@example.com
+							<i className="fa-solid fa-phone"></i>
+							{dataObject.contact_phone && dataObject.contact_phone}
 						</Link>
 					</li>
 				</ul>
@@ -29,17 +33,17 @@ export default function Topbar() {
 				<div className="icons">
 					<ul>
 						<li>
-							<Link href="#">
+							<Link to={dataObject.facebook_social_link && dataObject.facebook_social_link}>
 								<i className="fa-brands fa-facebook"></i>
 							</Link>
 						</li>
 						<li>
-							<Link href="#">
+							<Link to={dataObject.instagram_social_link && dataObject.instagram_social_link}>
 								<i className="fa-brands fa-instagram"></i>
 							</Link>
 						</li>
 						<li>
-							<Link href="#">
+							<Link to={dataObject.twitter_social_link && dataObject.twitter_social_link}>
 								<i className="fa-brands fa-square-twitter"></i>
 							</Link>
 						</li>

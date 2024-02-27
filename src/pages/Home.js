@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Testmonial from "../components/Testmonial";
 import Courses from "../components/Courses";
 import useHttp from "../Hooks/useHttp";
 import Loader from "../components/Loader/Loader";
 import { Link } from "react-router-dom";
+import {DataContext} from "../App"; 
 const HOME = process.env.REACT_APP_HOME;
 const API = process.env.REACT_APP_API_URL;
 export default function Home() {
   const token = localStorage.getItem("token");
 
   const { PostRequest } = useHttp();
-  const [isLoading, setIsLoading] = useState(true);
   const [courseLoading, setCourseLoading] = useState(false);
   const [BannerData, setBannerData] = useState({});
   const [coursesData, setCoursesData] = useState({});
@@ -21,23 +21,7 @@ export default function Home() {
     popular: "",
     page: 1,
   });
-
-  const getBanners = async () => {
-    const { data } = await PostRequest(
-      API + "getBanners",
-      {},
-      {
-        authorization: "Bearer " + token,
-      }
-    );
-    if (data?.responseCode === 1) {
-      setTimeout(function (){
-        setBannerData(data?.responseData[0]);
-      }, 1000); 
-      
-    }
-  };
-
+  const dataObject = useContext(DataContext);
   const getCourses = async () => {
     setCourseLoading(true);
     if (token) {
@@ -62,13 +46,8 @@ export default function Home() {
   };
   useEffect(() => {
     getCourses();
-    setIsLoading(false);
   }, [filter, CallAPI]);
-  useEffect(() => {
-    getBanners();
-    setIsLoading(false);
-  }, []);
-  return !isLoading ? (
+  return (
     <>
       {/* <!-- main content --> */}
       <div className="main-content ">
@@ -704,7 +683,5 @@ export default function Home() {
         </section>
       </div>
     </>
-  ) : (
-    <Loader />
   );
 }

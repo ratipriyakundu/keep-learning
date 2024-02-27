@@ -1,3 +1,4 @@
+import React, { useEffect, useState, createContext } from "react";
 import "./App.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -38,82 +39,168 @@ import AddNewCourse from "./components/AddNewCourse";
 import SelflearningCourseDetailPages from "./pages/SelflearningCourseDetailPages";
 import GoogleLogin from "./pages/GoogleLogin";
 import EditLiveCoursesForm from "./components/EditLiveCoursesForm";
+import Loader from "./components/Loader/Loader";
+import useHttp from "../src/Hooks/useHttp";
+export const DataContext = createContext({});
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [dataObject, setDataObject] = useState({});
+  const API = process.env.REACT_APP_API_URL;
+  const { PostRequest } = useHttp();
+  const token = localStorage.getItem("token");
+  const prevObjectData = { ...dataObject };
+  const fetchData = async () => {
+    //Fetch All Settings
+    var { data } = await PostRequest(
+      API + "allSettings",
+      {},
+      {
+        authorization: "Bearer " + token,
+      }
+    );
+    if (data?.responseCode === 1) {
+      data?.responseData.filter((item) => {
+        prevObjectData[''+item.name+''] = item.value;
+      })
+      setDataObject(prevObjectData);
+    }
+    //Home Route Data
+    if (window.location.pathname === '/') {
+      //Fetch Home Banner Data
+      var { data } = await PostRequest(
+        API + "getBanners",
+        {},
+        {
+          authorization: "Bearer " + token,
+        }
+      );
+      if (data?.responseCode === 1) {
+        data?.responseData.filter((item) => {
+          prevObjectData['home_banner'] = item;
+        })
+        setDataObject(prevObjectData);
+      }
+      //Fetch Home Page Course
+      var { data } = await PostRequest(
+        API + "getCourses",
+        {
+          status: "1",
+          featured: "",
+          popular: "",
+          page: 1,
+        },
+        {
+          authorization: "Bearer " + token,
+        }
+      );
+      if (data?.responseCode === 1) {
+        prevObjectData['home_course_data'] = data?.responseData;
+        setDataObject(prevObjectData);
+      }
+      //Fetch Home Page Testimonial
+      if(prevObjectData['home_testimonials'] === undefined) {
+        var { data } = await PostRequest(
+          API + "getTestimonials",
+          {
+            status: "1"
+          },
+          {
+            authorization: "Bearer " + token,
+          }
+        );
+        if (data?.responseCode === 1) {
+          prevObjectData['home_testimonials'] = data?.responseData;
+          setDataObject(prevObjectData);
+        }
+      }
+    }
+  }
+  useEffect(() => {
+    if(Object.keys(dataObject).length === 0) {
+      fetchData();
+    }else {
+      setIsLoading(false);
+    }
+  }, [dataObject]);
   return (
     <GoogleOAuthProvider clientId="752198572885-4g2el7a6670gkj9ed1qtdhltt56hnn3t.apps.googleusercontent.com">
       <div className="App">
-        <Router>
-          <Header />
-          <Routes>
-            <Route path="/GoogleLogin" element={<GoogleLogin />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/Beinstructor" element={<Beinstructor />} />
-            <Route
-              path="/Selflearningdtailpage"
-              element={<Selflearningdtailpage />}
-            />
-            <Route
-              path="/Selflearningcoursedtailpages"
-              element={<SelflearningCourseDetailPages />}
-            />
-            <Route
-              path="/Liveonlinedtailpage"
-              element={<Liveonlinedtailpage />}
-            />
+        {isLoading === true ? <Loader /> : (
+          <DataContext.Provider value={dataObject}>
+            <Router>
+              <Header />
+              <Routes>
+                <Route path="/GoogleLogin" element={<GoogleLogin />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/Beinstructor" element={<Beinstructor />} />
+                <Route
+                  path="/Selflearningdtailpage"
+                  element={<Selflearningdtailpage />}
+                />
+                <Route
+                  path="/Selflearningcoursedtailpages"
+                  element={<SelflearningCourseDetailPages />}
+                />
+                <Route
+                  path="/Liveonlinedtailpage"
+                  element={<Liveonlinedtailpage />}
+                />
 
-            <Route path="/about" element={<About />} />
-            <Route path="/contact-us" element={<ContactUs />} />
-            <Route path="/instructor-profile" element={<InstructorProfile />}>
-              <Route path="instCourses" element={<InstCourses />} />
-              <Route path="myprofile" element={<Myprofile />} />
-              <Route path="edit-profile" element={<Editprofile />} />
-              <Route path="edit-courses-form" element={<EditCoursesForm />} />
-              <Route
-                path="edit-live-courses-form"
-                element={<EditLiveCoursesForm />}
-              />
-              <Route path="add-new-course" element={<AddNewCourse />} />
-              <Route path="courses" element={<Courseslistviewloop />} />
-              <Route path="instNotification" element={<Notification />} />
-              <Route path="instPerformance" element={<Performance />} />
-              <Route path="instAccountSetting" element={<AccountSetting />} />
-              <Route path="instHelp" element={<Help />} />
-            </Route>
+                <Route path="/about" element={<About />} />
+                <Route path="/contact-us" element={<ContactUs />} />
+                <Route path="/instructor-profile" element={<InstructorProfile />}>
+                  <Route path="instCourses" element={<InstCourses />} />
+                  <Route path="myprofile" element={<Myprofile />} />
+                  <Route path="edit-profile" element={<Editprofile />} />
+                  <Route path="edit-courses-form" element={<EditCoursesForm />} />
+                  <Route
+                    path="edit-live-courses-form"
+                    element={<EditLiveCoursesForm />}
+                  />
+                  <Route path="add-new-course" element={<AddNewCourse />} />
+                  <Route path="courses" element={<Courseslistviewloop />} />
+                  <Route path="instNotification" element={<Notification />} />
+                  <Route path="instPerformance" element={<Performance />} />
+                  <Route path="instAccountSetting" element={<AccountSetting />} />
+                  <Route path="instHelp" element={<Help />} />
+                </Route>
 
-            <Route path="/student-profile" element={<StudentProfile />}>
-              <Route path="stdCourses" element={<StdCourses />} />
-              <Route path="myprofile" element={<StdMyprofile />} />
-              <Route path="edit-profile" element={<StdEditprofile />} />
-              <Route path="stdCart" element={<StdCart />} />
-              <Route path="stdWishlist" element={<StdWishlist />} />
-              <Route path="stdNotification" element={<StdNotification />} />
-              <Route path="stdAccountSet" element={<StdAccountSetting />} />
-              <Route path="stdHelp" element={<StdHelp />} />
-              <Route path="stdCheckout" element={<StdCheckout />} />
-            </Route>
+                <Route path="/student-profile" element={<StudentProfile />}>
+                  <Route path="stdCourses" element={<StdCourses />} />
+                  <Route path="myprofile" element={<StdMyprofile />} />
+                  <Route path="edit-profile" element={<StdEditprofile />} />
+                  <Route path="stdCart" element={<StdCart />} />
+                  <Route path="stdWishlist" element={<StdWishlist />} />
+                  <Route path="stdNotification" element={<StdNotification />} />
+                  <Route path="stdAccountSet" element={<StdAccountSetting />} />
+                  <Route path="stdHelp" element={<StdHelp />} />
+                  <Route path="stdCheckout" element={<StdCheckout />} />
+                </Route>
 
-            <Route
-              path="/edit-instructor-profile"
-              element={<EditInstructorProfile />}
-            />
-            <Route
-              path="/instructor-profile-confirmed"
-              element={<InstructorProfileConfirmed />}
-            />
-            <Route
-              exact
-              path={`/self-learning-course-details`}
-              element={<Selflearningcoursedetailspage />}
-            />
-            <Route
-              exact
-              path={`/live-online-course-details`}
-              element={<LiveOnlineClassDetails />}
-            />
-          </Routes>
-          <Footer />
-        </Router>
+                <Route
+                  path="/edit-instructor-profile"
+                  element={<EditInstructorProfile />}
+                />
+                <Route
+                  path="/instructor-profile-confirmed"
+                  element={<InstructorProfileConfirmed />}
+                />
+                <Route
+                  exact
+                  path={`/self-learning-course-details`}
+                  element={<Selflearningcoursedetailspage />}
+                />
+                <Route
+                  exact
+                  path={`/live-online-course-details`}
+                  element={<LiveOnlineClassDetails />}
+                />
+              </Routes>
+              <Footer />
+            </Router>
+          </DataContext.Provider>
+        )}
       </div>
     </GoogleOAuthProvider>
   );
