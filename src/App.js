@@ -44,7 +44,7 @@ import useHttp from "../src/Hooks/useHttp";
 export const DataContext = createContext({});
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(0);
   const [dataObject, setDataObject] = useState({});
   const API = process.env.REACT_APP_API_URL;
   const { PostRequest } = useHttp();
@@ -64,6 +64,7 @@ function App() {
         prevObjectData[''+item.name+''] = item.value;
       })
       setDataObject(prevObjectData);
+      setIsLoading(0);
     }
     //Home Route Data
     if (window.location.pathname === '/') {
@@ -80,6 +81,7 @@ function App() {
           prevObjectData['home_banner'] = item;
         })
         setDataObject(prevObjectData);
+        setIsLoading(isLoading + 50);
       }
       //Fetch Home Page Course
       var { data } = await PostRequest(
@@ -97,6 +99,7 @@ function App() {
       if (data?.responseCode === 1) {
         prevObjectData['home_course_data'] = data?.responseData;
         setDataObject(prevObjectData);
+        setIsLoading(isLoading + 70);
       }
       //Fetch Home Page Testimonial
       if(prevObjectData['home_testimonials'] === undefined) {
@@ -112,6 +115,7 @@ function App() {
         if (data?.responseCode === 1) {
           prevObjectData['home_testimonials'] = data?.responseData;
           setDataObject(prevObjectData);
+          setIsLoading(isLoading + 100);
         }
       }
     }
@@ -119,14 +123,12 @@ function App() {
   useEffect(() => {
     if(Object.keys(dataObject).length === 0) {
       fetchData();
-    }else {
-      setIsLoading(false);
     }
   }, [dataObject]);
   return (
     <GoogleOAuthProvider clientId="752198572885-4g2el7a6670gkj9ed1qtdhltt56hnn3t.apps.googleusercontent.com">
       <div className="App">
-        {isLoading === true ? <Loader /> : (
+        {isLoading !== 100 ? <Loader /> : (
           <DataContext.Provider value={dataObject}>
             <Router>
               <Header />

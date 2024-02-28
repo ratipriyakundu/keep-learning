@@ -13,15 +13,9 @@ export default function Home() {
   const { PostRequest } = useHttp();
   const dataObject = useContext(DataContext);
   const [courseLoading, setCourseLoading] = useState(false);
-  const [coursesData, setCoursesData] = useState(dataObject.home_course_date && dataObject.home_course_date);
+  const [coursesData, setCoursesData] = useState(dataObject.home_course_data && dataObject.home_course_data);
   const [CallAPI, setCallAPI] = useState(false);
-  const [filter, setFilter] = useState({
-    status: "1",
-    featured: "",
-    popular: "",
-    page: 1,
-  });
-  const getCourses = async () => {
+  const getCourses = async (filter) => {
     setCourseLoading(true);
     if (token) {
       const { data } = await PostRequest(API + "getCourses", filter, {
@@ -43,10 +37,6 @@ export default function Home() {
       }
     }
   };
-  useEffect(() => {
-    getCourses();
-  }, [filter, CallAPI]);
-  console.log(dataObject)
   return (
     <>
       {/* <!-- main content --> */}
@@ -269,7 +259,7 @@ export default function Home() {
                 <li className="nav-item2" role="presentation">
                   <button
                     onClick={() =>
-                      setFilter({
+                      getCourses({
                         status: "1",
                         featured: "",
                         popular: "",
@@ -291,7 +281,7 @@ export default function Home() {
                 <li className="nav-item2" role="presentation">
                   <button
                     onClick={() =>
-                      setFilter({
+                      getCourses({
                         status: "1",
                         featured: "1",
                         popular: "",
@@ -313,7 +303,7 @@ export default function Home() {
                 <li className="nav-item2" role="presentation">
                   <button
                     onClick={() =>
-                      setFilter({
+                      getCourses({
                         status: "1",
                         featured: "",
                         popular: "1",
