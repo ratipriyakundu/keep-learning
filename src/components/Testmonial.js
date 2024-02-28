@@ -5,8 +5,8 @@ export default function Testmonial(props) {
 		<>
 			{/* <!-- Slider main container --> */}
 			<Carousel data-vs-theme="dark">
-				{props.testimonials && props.testimonials.map((item) =>
-					<Carousel.Item key={item._id}>
+				{props.testimonials && props.testimonials.map((item, index) =>
+					<Carousel.Item key={index}>
 						<div className="row" id="about-5">
 							<h2>
 								Hear from our<span> {props.type}</span>

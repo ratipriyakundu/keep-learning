@@ -23,7 +23,7 @@ export default function Courses({ coursesData, setCallAPI, CallAPI }) {
   };
   return (
     <>
-      <div className="row">
+      <div className="row text-center">
         <ToastContainer autoClose={300} />
         {coursesData && coursesData.length > 0 ? (
           coursesData.map((item, index) => {
@@ -40,7 +40,7 @@ export default function Courses({ coursesData, setCallAPI, CallAPI }) {
                 </div>
                 <div className="text-price">
                   <div className="price">
-                    <p>${item.courseFee}</p>
+                    <p>₹ {item.courseFee}</p>
                   </div>
                 </div>
                 <h3 className="mx-0">{item.title}</h3>
@@ -97,7 +97,7 @@ export default function Courses({ coursesData, setCallAPI, CallAPI }) {
             );
           })
         ) : (
-          <h3>Data Not found</h3>
+          <h5 className="text-danger mx-auto my-5">No Courses Match with this Filter, Try Others...</h5>
         )}
       </div>
     </>
