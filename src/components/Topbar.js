@@ -1,9 +1,7 @@
-import React, {useContext} from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import {DataContext} from "../App";
 
-export default function Topbar() {
-	const dataObject = useContext(DataContext);
+export default function Topbar({data}) {
 	return (
 		<>
 			{/* <!-- top bar --> */}
@@ -11,21 +9,21 @@ export default function Topbar() {
 				{/* <!-- icon list --> */}
 				<ul className="icon-list">
 					<li>
-						<Link to={'https://www.google.com/maps?q='+dataObject.contact_address} target="_blank">
+						<Link to={'https://www.google.com/maps?q='+data.contact_address} target="_blank">
 							<i className="fa-solid fa-location-dot"></i>
-							{dataObject.contact_address && dataObject.contact_address}
+							{data.contact_address && data.contact_address}
 						</Link>
 					</li>
 					<li>
-						<Link to={'mailto:'+dataObject.contact_email} target="_blank">
+						<Link to={'mailto:'+data.contact_email} target="_blank">
 							<i className="fa-solid fa-comment"></i>
-							{dataObject.contact_email && dataObject.contact_email}
+							{data.contact_email && data.contact_email}
 						</Link>
 					</li>
 					<li>
-						<Link to={'tel:'+dataObject.contact_phone} target="_blank">
+						<Link to={'tel:'+data.contact_phone} target="_blank">
 							<i className="fa-solid fa-phone"></i>
-							{dataObject.contact_phone && dataObject.contact_phone}
+							{data.contact_phone && data.contact_phone}
 						</Link>
 					</li>
 				</ul>
@@ -33,17 +31,17 @@ export default function Topbar() {
 				<div className="icons">
 					<ul>
 						<li>
-							<Link to={dataObject.facebook_social_link && dataObject.facebook_social_link} target="_blank">
+							<Link to={data.facebook_social_link && data.facebook_social_link} target="_blank">
 								<i className="fa-brands fa-facebook"></i>
 							</Link>
 						</li>
 						<li>
-							<Link to={dataObject.instagram_social_link && dataObject.instagram_social_link} target="_blank">
+							<Link to={data.instagram_social_link && data.instagram_social_link} target="_blank">
 								<i className="fa-brands fa-instagram"></i>
 							</Link>
 						</li>
 						<li>
-							<Link to={dataObject.twitter_social_link && dataObject.twitter_social_link} target="_blank">
+							<Link to={data.twitter_social_link && data.twitter_social_link} target="_blank">
 								<i className="fa-brands fa-square-twitter"></i>
 							</Link>
 						</li>

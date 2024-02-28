@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import Testmonial from "../components/Testmonial";
 import Pagination from "../components/Pagination/Pagination";
 const API = process.env.REACT_APP_API_URL;
-export default function Selflearningdtailpage() {
+export default function SelfLearningCourses() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const { PostRequest } = useHttp();
@@ -80,50 +80,50 @@ export default function Selflearningdtailpage() {
             <div className="row mt-5 ">
               {Course && Course.length > 0
                 ? Course.map((items, index) => {
-                    return (
-                      <div className="col-md-4" key={index}>
-                        <div className="box-Corse-Duration">
-                          <h3>{items.title}</h3>
-                          <p>{items.about}</p>
-                          <div className="d-flex mt-3">
-                            <img
-                              alt="img"
-                              src="img/Group 2411.svg"
-                              id="img-Duration"
-                              className="rounded float-start"
-                            />
-                            <p>Corse Duration : {items.courseDuration} Min </p>
+                  return (
+                    <div className="col-md-4" key={index}>
+                      <div className="box-Corse-Duration">
+                        <h3>{items.title}</h3>
+                        <p>{items.about}</p>
+                        <div className="d-flex mt-3">
+                          <img
+                            alt="img"
+                            src="img/Group 2411.svg"
+                            id="img-Duration"
+                            className="rounded float-start"
+                          />
+                          <p>Corse Duration : {items.courseDuration} Min </p>
+                        </div>
+                        <div className="d-flex mt-2 mb-2">
+                          <img
+                            alt="img"
+                            src="img/Group 3099.svg"
+                            id="img-Duration"
+                            className="rounded float-start"
+                          />
+                          <p>Corse Fees : ${items.courseFee}</p>
+                        </div>
+                        <div className="d-flex mt-2 mb-0">
+                          <img
+                            alt="img"
+                            src="img/Group 3099.svg"
+                            id="img-Duration"
+                            className="rounded float-start"
+                          />
+                          <p>Instructors : {items.userId.name}</p>
+                        </div>
+                        <div className="d-flex align-items-center">
+                          <div class="Star2">
+                            <img alt="img" src="../img/Star 2.svg" />
+                            <img alt="img" src="../img/Star 2.svg" />
+                            <img alt="img" src="../img/Star 2.svg" />
+                            <img alt="img" src="../img/Star 2.svg" />
+                            <img alt="img" src="../img/Star 5.svg" />
                           </div>
-                          <div className="d-flex mt-2 mb-2">
-                            <img
-                              alt="img"
-                              src="img/Group 3099.svg"
-                              id="img-Duration"
-                              className="rounded float-start"
-                            />
-                            <p>Corse Fees : ${items.courseFee}</p>
-                          </div>
-                          <div className="d-flex mt-2 mb-0">
-                            <img
-                              alt="img"
-                              src="img/Group 3099.svg"
-                              id="img-Duration"
-                              className="rounded float-start"
-                            />
-                            <p>Instructors : {items.userId.name}</p>
-                          </div>
-                          <div className="d-flex align-items-center">
-                            <div class="Star2">
-                              <img alt="img" src="../img/Star 2.svg" />
-                              <img alt="img" src="../img/Star 2.svg" />
-                              <img alt="img" src="../img/Star 2.svg" />
-                              <img alt="img" src="../img/Star 2.svg" />
-                              <img alt="img" src="../img/Star 5.svg" />
-                            </div>
-                            <p className="px-3">Rating</p>
-                          </div>
-                          <div className="text-center d-block gap-2">
-                            {/* <button
+                          <p className="px-3">Rating</p>
+                        </div>
+                        <div className="text-center d-block gap-2">
+                          {/* <button
                               type="button"
                               id="button-Cors"
                               className="btn btn-outline-primary text-white bg-primary"
@@ -131,23 +131,23 @@ export default function Selflearningdtailpage() {
                             >
                               Add To Cart
                             </button> */}
-                            <button
-                              type="button"
-                              id="button-Cors"
-                              className="btn btn-outline-primary mt-3"
-                              onClick={() =>
-                                navigate("/self-learning-course-details", {
-                                  state: { items },
-                                })
-                              }
-                            >
-                              View Details
-                            </button>
-                          </div>
+                          <button
+                            type="button"
+                            id="button-Cors"
+                            className="btn btn-outline-primary mt-3"
+                            onClick={() =>
+                              navigate("/self-learning-course-details", {
+                                state: { items },
+                              })
+                            }
+                          >
+                            View Details
+                          </button>
                         </div>
                       </div>
-                    );
-                  })
+                    </div>
+                  );
+                })
                 : null}
             </div>
           </div>

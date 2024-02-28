@@ -6,16 +6,16 @@ import Topbar from "./Topbar";
 import Headermenu from "./Headermenu";
 import Mobileheadermenu from "./Mobileheadermenu";
 
-export default function Header() {
+export default function Header({data}) {
 	return (
 		<>
 			<ToastContainer autoClose={1000} />
 			<header className="position-sticky top-0 " style={{ zIndex: 999 }}>
-				<Topbar />
+				<Topbar data={data}/>
 				{/* desktop menu */}
-				<Headermenu />
+				<Headermenu data={data}/>
 				{/* mobile view menu */}
-				<Mobileheadermenu />
+				<Mobileheadermenu data={data}/>
 				{/* set condition if instractor login hide nav menu set this button */}
 				<div className="cart-switchtostudentbtn d-none">
 					<Link to="/" className="btn btn-custom2">

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, useContext } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
@@ -7,9 +7,8 @@ import useHttp from "../Hooks/useHttp";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { toast } from "react-toastify";
-import {DataContext} from "../App";
 const API = process.env.REACT_APP_API_URL;
-export default function Headermenu() {
+export default function Headermenu({data}) {
   const [isChecked, setIsChecked] = useState(false);
   const { PostRequest } = useHttp();
   const [email, setEmail] = useState("");
@@ -19,7 +18,6 @@ export default function Headermenu() {
   const [password, setPassword] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
-  const dataObject = useContext(DataContext);
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
@@ -154,7 +152,7 @@ export default function Headermenu() {
   }, [ token]);
   useEffect(() => {
     if (!token) {
-      navigate("/");
+      //navigate("/");
     } else {
       profileDetails();
     }
@@ -174,7 +172,7 @@ export default function Headermenu() {
         id="desktopmenu"
       >
         <Link className="navbar-brand Brand-logo" to="/">
-          <img alt="Header Brand Icon" src={dataObject.header_logo && process.env.REACT_APP_HOME+dataObject.header_logo} />
+          <img alt="Header Brand Icon" src={data.header_logo && process.env.REACT_APP_HOME+data.header_logo} />
         </Link>
         <button
           className="navbar-toggler"
@@ -212,7 +210,7 @@ export default function Headermenu() {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/Selflearningdtailpage">
+                <NavLink className="nav-link" to="/self-learning-courses">
                   Self-learning Courses
                 </NavLink>
               </li>

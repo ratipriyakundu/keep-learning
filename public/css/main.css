@@ -11,6 +11,14 @@ body {
   font-family: "Open Sans", sans-serif;
 }
 
+a:active {
+  text-decoration: none;
+} 
+
+a:visited {
+  text-decoration: none;
+}
+
 p {
   margin-bottom: 0px !important;
 }

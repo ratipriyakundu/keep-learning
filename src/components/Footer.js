@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { DataContext } from "../App";
 
-export default function Footer() {
-	const dataObject = useContext(DataContext);
+export default function Footer({data}) {
 	return (
 		<>
 			{/* <!-- footer --> */}
@@ -13,7 +11,7 @@ export default function Footer() {
 						<div className="col-md-4">
 							<div className="brand-info">
 								<div className="brand-logo">
-									<img alt="Footer Brand Icon" src={dataObject.footer_logo && process.env.REACT_APP_HOME+dataObject.footer_logo} width="60%" />
+									<img alt="Footer Brand Icon" src={data.footer_logo && process.env.REACT_APP_HOME+data.footer_logo} width="60%" />
 								</div>
 								<p className="mt-4">
 									{" "}
@@ -23,17 +21,17 @@ export default function Footer() {
 								<div className="icons2 mt-3">
 									<ul>
 										<li>
-											<Link to={dataObject.facebook_social_link && dataObject.facebook_social_link} target="_blank">
+											<Link to={data.facebook_social_link && data.facebook_social_link} target="_blank">
 												<i className="fa-brands fa-facebook"></i>
 											</Link>
 										</li>
 										<li>
-											<Link to={dataObject.instagram_social_link && dataObject.instagram_social_link} target="_blank">
+											<Link to={data.instagram_social_link && data.instagram_social_link} target="_blank">
 												<i className="fa-brands fa-instagram"></i>
 											</Link>
 										</li>
 										<li>
-											<Link to={dataObject.twitter_social_link && dataObject.twitter_social_link} target="_blank">
+											<Link to={data.twitter_social_link && data.twitter_social_link} target="_blank">
 												<i className="fa-brands fa-square-twitter"></i>
 											</Link>
 										</li>
@@ -52,16 +50,16 @@ export default function Footer() {
 											<Link to="/about">About</Link>
 										</li>
 										<li>
-											<Link to="#">Pricing</Link>
+											<Link to="/">Pricing</Link>
 										</li>
 										<li>
-											<Link to="#">Career</Link>
+											<Link to="/">Career</Link>
 										</li>
 										<li>
 											<Link to="/contact-us">Contact</Link>
 										</li>
 										<li>
-											<Link to="#">Term & Con.</Link>
+											<Link to="/">Term & Con.</Link>
 										</li>
 									</ul>
 								</div>
@@ -71,16 +69,16 @@ export default function Footer() {
 									<hr className="bar " />
 									<ul className="list">
 										<li>
-											<Link to="#">Self-learning Courses</Link>
+											<Link to="/">Self-learning Courses</Link>
 										</li>
 										<li>
-											<Link to="#">Live Online class</Link>
+											<Link to="/">Live Online class</Link>
 										</li>
 										<li>
-											<Link to="#">Be instructor</Link>
+											<Link to="/">Be instructor</Link>
 										</li>
 										<li>
-											<Link to="#">Login/Signup</Link>
+											<Link to="/">Login/Signup</Link>
 										</li>
 									</ul>
 								</div>
@@ -90,7 +88,7 @@ export default function Footer() {
 									<hr className="bar " />
 									<ul className="list">
 										<li className="p-0">
-											<Link to={'https://www.google.com/maps?q=' + dataObject.contact_address} target="_blank">
+											<Link to={'https://www.google.com/maps?q=' + data.contact_address} target="_blank">
 												<div className="icon-box-footer">
 													<img
 														alt="img"
@@ -99,13 +97,13 @@ export default function Footer() {
 														width="auto"
 													/>
 													<span className="iccontent">
-														{dataObject.contact_address && dataObject.contact_address}
+														{data.contact_address && data.contact_address}
 													</span>
 												</div>
 											</Link>
 										</li>
 										<li className="p-0">
-											<Link to={'mailto:' + dataObject.contact_email} target="_blank">
+											<Link to={'mailto:' + data.contact_email} target="_blank">
 												<div className="icon-box-footer">
 													<img
 														alt="img"
@@ -114,13 +112,13 @@ export default function Footer() {
 														width="auto"
 													/>
 													<span className="iccontent">
-														{dataObject.contact_email && dataObject.contact_email}
+														{data.contact_email && data.contact_email}
 													</span>
 												</div>
 											</Link>
 										</li>
 										<li className="p-0">
-											<Link to={'tel:' + dataObject.contact_phone} target="_blank">
+											<Link to={'tel:' + data.contact_phone} target="_blank">
 												<div className="icon-box-footer">
 													<img
 														alt="img"
@@ -129,7 +127,7 @@ export default function Footer() {
 														width="auto"
 													/>
 													<span className="iccontent">
-														{dataObject.contact_phone && dataObject.contact_phone}
+														{data.contact_phone && data.contact_phone}
 													</span>
 												</div>
 											</Link>
