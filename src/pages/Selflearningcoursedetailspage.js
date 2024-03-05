@@ -1,19 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import Loader from "../components/Loader/Loader";
+import Header from "../components/Header";
 import Studentalsosearchfor from "../components/Studentalsosearchfor";
+import Footer from "../components/Footer";
 import { ToastContainer, toast } from "react-toastify";
 import useHttp from "../Hooks/useHttp";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
 export default function Selflearningcoursedetailspage() {
-  const API = process.env.REACT_APP_API_URL;
-  const token = localStorage.getItem("token");
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [dataObject, setDataObject] = useState({});
   const { PostRequest } = useHttp();
   const location = useLocation();
-
+  const API = process.env.REACT_APP_API_URL;
+  const token = localStorage.getItem("token");
   const CourseDetails = location?.state?.items;
+  const prevObjectData = { ...dataObject };
+
   const addToCart = async (items) => {
     const { data } = await PostRequest(
       API + "addToCart",
@@ -26,8 +35,54 @@ export default function Selflearningcoursedetailspage() {
       toast.error(data?.responseText);
     }
   };
-  return (
+
+  //Fetch All Settings
+  const fetchSettings = async () => {
+    var { data } = await PostRequest(
+      API + "allSettings",
+      {},
+      {
+        authorization: "Bearer " + token,
+      }
+    );
+    if (data?.responseCode === 1) {
+      data?.responseData.filter((item) => {
+        prevObjectData['' + item.name + ''] = item.value;
+      })
+      setDataObject(prevObjectData);
+      fetchCourse();
+    }
+  }
+  //Fetch Courses
+  const fetchCourse = async () => {
+    var { data } = await PostRequest(
+      API + "getCourses",
+      {
+        status: "1",
+        featured: "",
+        popular: "",
+        page: 1,
+      },
+      {
+        authorization: "Bearer " + token,
+      }
+    );
+    if (data?.responseCode === 1) {
+      prevObjectData['course_list'] = data?.responseData;
+      setDataObject(prevObjectData);
+      setIsLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchSettings();
+  }, []);
+
+  return isLoading === true ? <Loader /> : (
     <>
+      <GoogleOAuthProvider clientId="752198572885-4g2el7a6670gkj9ed1qtdhltt56hnn3t.apps.googleusercontent.com">
+        <Header data={dataObject} />
+      </GoogleOAuthProvider>
       {/* <!-- box --> */}
       <ToastContainer autoClose={1000} />
       <div className="container mt-5">
@@ -41,9 +96,9 @@ export default function Selflearningcoursedetailspage() {
             <li className="breadcrumb-item">
               <Link
                 className="text-muted text-decoration-none"
-                to="/Selflearningdtailpage"
+                to="/self-learning-courses"
               >
-                Self-learning Course
+                Self-learning Courses
               </Link>
             </li>
             <li className="breadcrumb-item active" aria-current="page">
@@ -59,7 +114,7 @@ export default function Selflearningcoursedetailspage() {
                   <h2>{CourseDetails.title}</h2>
                 </a>
                 <p style={{ fontSize: "20px", color: "#5E5E5E" }}>
-                  {CourseDetails.about}
+                  {CourseDetails.about.length > 120 ? CourseDetails.about.substring(0, 120) : CourseDetails.about}
                 </p>
                 <div className="d-flex">
                   <div className="Ratings-a d-flex flex-column  ">
@@ -101,8 +156,8 @@ export default function Selflearningcoursedetailspage() {
               </div>
               <div className="box-78 col-md-6">
                 <div>
-                  <h6>Corse Fees : $ {CourseDetails.courseFee}</h6>
-                  <p>Discount : $ {CourseDetails.discount}</p>
+                  <h6>Course Fees : ₹ {CourseDetails.courseFee}</h6>
+                  <p>Discount : ₹ {CourseDetails.discount}</p>
                   <button
                     type="button"
                     id="button-Add-to-cart"
@@ -539,6 +594,7 @@ export default function Selflearningcoursedetailspage() {
         btnborder="1px solid #fff"
         cardBorder="1px solid #e0dede"
         imgcolor="#E5C100"
+        courses={dataObject.course_list}
       />
       {/* <!-- students also searching for end --> */}
 
@@ -556,7 +612,9 @@ export default function Selflearningcoursedetailspage() {
         btnborder="1px solid #021869"
         cardBorder="1px solid #021869"
         imgcolor="#021869"
+        courses={dataObject.course_list}
       />
+      <Footer data={dataObject} />
     </>
   );
 }
