@@ -1,28 +1,30 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import useHttp from "../Hooks/useHttp";
 import { ToastContainer, toast } from "react-toastify";
 const API = process.env.REACT_APP_API_URL;
-const HOME = process.env.REACT_APP_HOME;
+
 export default function Myprofile() {
+
   const token = localStorage.getItem("token");
   const { PostRequest } = useHttp();
-  const [profile, setProfile] = useState({});
-  const [name, setName] = useState("");
-  const [mobile, setMobile] = useState("");
-  const [email, setEmail] = useState("");
-  const [Id, setId] = useState("");
-  const [about, setAbout] = useState("");
-  const [qualification, setQualification] = useState("");
-  const [experience, setExperience] = useState("");
-  const [teach, setTeach] = useState("");
+  const dataObject = useOutletContext();
+  const [profile, setProfile] = useState(dataObject.profile);
+  const [name, setName] = useState(dataObject.name);
+  const [mobile, setMobile] = useState(dataObject.mobile);
+  const [email, setEmail] = useState(dataObject.email);
+  const [Id, setId] = useState(dataObject._id);
+  const [about, setAbout] = useState(dataObject.about);
+  const [qualification, setQualification] = useState(dataObject.qualification);
+  const [experience, setExperience] = useState(dataObject.experience);
+  const [teach, setTeach] = useState(dataObject.teach);
   const [VideoBase, setVideoBase] = useState("");
   const [VideoExtension, setVideoExtension] = useState("");
   const [ContentBase, setContentBase] = useState("");
   const [ContentExtension, setContentExtension] = useState("");
-  const [demoVideo, setDemoVideo] = useState("");
-  const [demoContent, setDemoContent] = useState("");
+  const [demoVideo, setDemoVideo] = useState(dataObject.demoVideo);
+  const [demoContent, setDemoContent] = useState(dataObject.demoContent);
   const navigate = useNavigate();
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
@@ -41,39 +43,13 @@ export default function Myprofile() {
         });
         if (data?.responseCode === 1) {
           toast.success(data?.responseText);
-          profileDetails();
         } else {
           toast.error(data?.responseText);
         }
-        profileDetails();
       };
       reader.readAsDataURL(file);
     }
   };
-
-  const profileDetails = useCallback(async () => {
-    const { data } = await PostRequest(
-      API + "profileDetails",
-      {},
-      { authorization: "Bearer " + token }
-    );
-    if (data?.responseCode === 1) {
-      setId(data?.responseData._id);
-      setName(data?.responseData.name);
-      setMobile(data?.responseData.mobile);
-      setEmail(data?.responseData.email);
-      setAbout(data?.responseData.about);
-      setProfile(HOME + data?.responseData.profile);
-      setQualification(data?.responseData.qualification);
-      setExperience(data?.responseData.experience);
-      setTeach(data?.responseData.teach);
-      setDemoVideo(data?.responseData.demoVideo);
-      setDemoContent(data?.responseData.demoContent);
-      // toast.success(data?.responseText);
-    } else {
-      toast.error(data?.responseText);
-    }
-  }, []);
   const myRef = useRef(null);
   const clickElement = (ref) => {
     ref.current.dispatchEvent(
@@ -87,11 +63,8 @@ export default function Myprofile() {
   useEffect(() => {
     if (!token) {
       navigate("/");
-    } else {
-      profileDetails();
     }
-    return profileDetails;
-  }, [profileDetails]);
+  }, []);
 
   const handleContent = async (event) => {
     const file = event.target.files[0];
@@ -143,7 +116,6 @@ export default function Myprofile() {
     });
     if (data?.responseCode === 1) {
       toast.success(data?.responseText);
-      profileDetails();
     } else {
       toast.error(data?.responseText);
     }
@@ -159,10 +131,8 @@ export default function Myprofile() {
               <div className="profile1-2">
                 <div className="text-center">
                   <img
-                    src={profile ? profile : "../img/profile.png"}
-                    className="w-50 "
-                    id="profile1-1"
-                    alt="..."
+                    src={profile !== null ? profile : "../img/profile.png"}
+                    className="rounded-profile-image"
                   />
                   <input
                     onChange={handleFileChange}
@@ -306,7 +276,7 @@ export default function Myprofile() {
                     type="button"
                     id="button-p"
                     onClick={() => handleSubmit()}
-                    className="btn btn-primary rounded px-5"
+                    className="btn btn-primary btn-sm rounded px-5"
                   >
                     UPDATE
                   </button>

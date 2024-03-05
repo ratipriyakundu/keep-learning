@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Testmonial from "../components/Testmonial";
+import Loader from "../components/Loader/Loader";
 
 export default function Beinstructor() {
-  return (
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  return isLoading === true ? <Loader /> : (
     <>
       <div className="benner">
         <div className="container mt-0">

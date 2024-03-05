@@ -30,10 +30,11 @@ const InstSidebar = () => {
 					My profile
 				</Link>
 				<Link
-					to="/instructor-profile/instCourses"
+					to="/instructor-profile/self-learning-courses"
 					className={
-						location.pathname === "/instructor-profile/instCourses" ||
-						location.pathname === "/instructor-profile/edit-courses-form"
+						location.pathname === "/instructor-profile/self-learning-courses" ||
+						location.pathname === "/instructor-profile/edit-courses-form" ||
+						location.pathname === "/instructor-profile/add-self-learning-course"
 							? "nav-link active"
 							: "nav-link"
 					}

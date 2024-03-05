@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import Coursefilter from "../components/Coursefilter";
+import Loader from "../components/Loader/Loader";
 import { useNavigate } from "react-router-dom";
 import Pagination from "../components/Pagination/Pagination";
 import useHttp from "../Hooks/useHttp";
@@ -9,6 +10,7 @@ export default function Liveonlinedtailpage() {
   const token = localStorage.getItem("token");
   const { PostRequest } = useHttp();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
   const [Course, setCourse] = useState([]);
   const [filter] = useState({
     status: "1",
@@ -27,7 +29,7 @@ export default function Liveonlinedtailpage() {
   useEffect(() => {
     GetCourses();
   }, []);
-  return (
+  return isLoading === true ? <Loader /> : (
     <>
       <div className="container">
         <div className="row">

@@ -4,9 +4,12 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { Link, useNavigate } from "react-router-dom";
 import StdMessageContent from "./StdMessageContent";
 import InstNotificationContent from "./InstNotificationContent";
+import Loader from "./Loader/Loader";
 import useHttp from "../Hooks/useHttp";
 const API = process.env.REACT_APP_API_URL;
 const StdNotification = () => {
+
+  const [isLoading, setIsLoading] = useState(true);
   const token = localStorage.getItem("token");
   const [totalNotification, setTotalNotification] = useState([]);
   const { PostRequest } = useHttp();
@@ -29,7 +32,8 @@ const StdNotification = () => {
   useEffect(() => {
     fetchNotificationList();
   }, []);
-  return (
+
+  return isLoading === true ? <Loader /> : (
     <>
       <div className="row">
         <Tabs className="d-flex flex-column align-items-center ">

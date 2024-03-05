@@ -8,6 +8,8 @@ import Liveonlinedtailpage from "./pages/Liveonlinedtailpage";
 import About from "./pages/About";
 import ContactUs from "./pages/ContactUs";
 import InstructorProfile from "./pages/InstructorProfile";
+import InstructorSelfLearningCourses from "./pages/instructor/InstructorSelfLearningCourses";
+import AddSelfLearningCourse from "./pages/instructor/AddSelfLearningCourse";
 import EditInstructorProfile from "./pages/EditInstructorProfile";
 import InstructorProfileConfirmed from "./pages/InstructorProfileConfirmed";
 import "react-toastify/dist/ReactToastify.css";
@@ -32,7 +34,6 @@ import StdWishlist from "./components/StdWishlist";
 import StdCheckout from "./components/StdCheckout";
 import EditCoursesForm from "./components/EditCoursesForm";
 import LiveOnlineClassDetails from "./pages/LiveOnlineClassDetails";
-import AddNewCourse from "./components/AddNewCourse";
 import SelflearningCourseDetailPages from "./pages/SelflearningCourseDetailPages";
 import GoogleLogin from "./pages/GoogleLogin";
 import EditLiveCoursesForm from "./components/EditLiveCoursesForm";
@@ -62,15 +63,15 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/instructor-profile" element={<InstructorProfile />}>
-            <Route path="instCourses" element={<InstCourses />} />
+            <Route path="self-learning-courses" element={<InstructorSelfLearningCourses />} />
             <Route path="myprofile" element={<Myprofile />} />
             <Route path="edit-profile" element={<Editprofile />} />
+            <Route path="add-self-learning-course" element={<AddSelfLearningCourse />} />
             <Route path="edit-courses-form" element={<EditCoursesForm />} />
             <Route
               path="edit-live-courses-form"
               element={<EditLiveCoursesForm />}
             />
-            <Route path="add-new-course" element={<AddNewCourse />} />
             <Route path="courses" element={<Courseslistviewloop />} />
             <Route path="instNotification" element={<Notification />} />
             <Route path="instPerformance" element={<Performance />} />

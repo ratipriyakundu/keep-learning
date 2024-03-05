@@ -2131,6 +2131,12 @@ div#v-pills-tabContent .active {
   border: 1px solid #ddd;
 }
 
+.rounded-profile-image {
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+}
+
 .edit-profile {
   font-size: 16px;
   font-weight: 600;
@@ -3231,8 +3237,8 @@ input[type="radio"] {
 }
 
 .megamenushow img {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
 }
 
 .inner-row ul li {

@@ -147,7 +147,7 @@ export default function Headermenu({data}) {
       setName(data?.responseData.name);
       setMobile(data?.responseData.mobile);
       setEmail(data?.responseData.email);
-      setProfile(process.env.REACT_APP_HOME + data?.responseData.profile);
+      setProfile(data?.responseData.profile !== null ? process.env.REACT_APP_HOME + data?.responseData.profile : null);
     }
   }, [ token]);
   useEffect(() => {
@@ -303,15 +303,15 @@ export default function Headermenu({data}) {
       <div className={megamenu ? "megamenushow" : "megamenuhide"}>
         <div className="inner-row d-flex align-items-center border-bottom-1 ">
           <img
-            src={profile ? profile : "../img/profile.png"}
+            src={profile !== null ? profile : "../img/profile.png"}
             alt="profile"
             id="profile1-1"
-            width={70}
-            height={70}
+            width={50}
+            height={50}
           />
           <div className="d-block px-3">
-            <h6 className="m-0">{name}</h6>
-            <p>{email}</p>
+            <h6 className="m-0">{name.length > 18 ? name.substring(0, 18)+'...' : name}</h6>
+            <p>{email.length > 18 ? email.substring(0, 18) + '...' : email}</p>
           </div>
         </div>
         <div className="inner-row d-flex align-items-center border-bottom-1">

@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+import Loader from "../components/Loader/Loader";
 
 export default function About() {
-	return (
+
+	const [isLoading, setIsLoading] = useState(true);
+
+	return isLoading === true ? <Loader /> : (
 		<>
 			{/* <!-- main content --> */}
 			<div className="main-content">
@@ -29,28 +33,28 @@ export default function About() {
 							<div className="image-box">
 								<div className="row mt-5">
 									<div className="col-md-3 d-flex ">
-										<img alt="img" src="img/dimond.svg" alt="dimond image" />
+										<img alt="img" src="img/dimond.svg" />
 										<div className="box-content px-3">
 											<h3>00000</h3>
 											<p>Online Courses</p>
 										</div>
 									</div>
 									<div className="col-md-3 d-flex ">
-										<img alt="img" src="img/dimond.svg" alt="dimond image" />
+										<img alt="img" src="img/dimond.svg" />
 										<div className="box-content px-3">
 											<h3>00000</h3>
 											<p>Expert Instructors</p>
 										</div>
 									</div>
 									<div className="col-md-3 d-flex ">
-										<img alt="img" src="img/dimond.svg" alt="dimond image" />
+										<img alt="img" src="img/dimond.svg" />
 										<div className="box-content px-3">
 											<h3>Unlimited</h3>
 											<p>Course Access</p>
 										</div>
 									</div>
 									<div className="col-md-3 d-flex ">
-										<img alt="img" src="img/dimond.svg" alt="dimond image" />
+										<img alt="img" src="img/dimond.svg" />
 										<div className="box-content px-3">
 											<h3>Learn</h3>
 											<p>From Anywhere</p>
@@ -165,7 +169,7 @@ export default function About() {
 									alt="img"
 									src="img/mission 2.svg"
 									className="rounded"
-									alt="..."
+									
 									style={{ width: "20%" }}
 								/>
 							</div>
@@ -180,7 +184,7 @@ export default function About() {
 									alt="img"
 									src="img/vision 3.png"
 									className="rounded"
-									alt="..."
+									
 									style={{ width: "20%" }}
 								/>
 							</div>
@@ -213,7 +217,7 @@ export default function About() {
 												alt="img"
 												src="img/Frame 40.png"
 												className="rounded"
-												alt="..."
+												
 											/>
 										</div>
 									</div>
@@ -235,7 +239,7 @@ export default function About() {
 												alt="img"
 												src="img/Group 86.svg"
 												className="rounded"
-												alt="..."
+												
 											/>
 										</div>
 									</div>
@@ -262,7 +266,7 @@ export default function About() {
 												alt="img"
 												src="img/Frame 42.png"
 												className="rounded"
-												alt="..."
+												
 											/>
 										</div>
 									</div>
@@ -284,7 +288,7 @@ export default function About() {
 												alt="img"
 												src="img/Frame 43.png"
 												className="rounded"
-												alt="..."
+												
 											/>
 										</div>
 									</div>
@@ -313,7 +317,7 @@ export default function About() {
 									alt="img"
 									src="img/Vector-2.png"
 									className="rounded"
-									alt="..."
+									
 								/>
 							</div>
 						</div>

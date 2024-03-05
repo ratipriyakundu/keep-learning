@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Loader from "../components/Loader/Loader";
 
 export default function ContactUs() {
-  return (
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  return isLoading === true ? <Loader /> : (
     <>
       {/* <!-- main content --> */}
       <div className="main-content ">

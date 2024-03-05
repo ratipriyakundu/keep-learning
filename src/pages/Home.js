@@ -9,6 +9,7 @@ import Footer from "../components/Footer";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 export default function Home() {
+  
   const [isLoading, setIsLoading] = useState(true);
   const [dataObject, setDataObject] = useState({});
   const [courseLoading, setCourseLoading] = useState(false);
@@ -463,7 +464,7 @@ export default function Home() {
               <div className="mt-5 text-center">
                 <Link
                   style={{ textDecoration: 'none' }}
-                  to="/Selflearningdtailpage"
+                  to="/self-learning-courses"
                   type="button"
                   className="btn btn-custom"
                 >
