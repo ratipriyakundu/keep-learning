@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/keep-learning/static/css/main.b05ce0cf.css",
-    "main.js": "/keep-learning/static/js/main.bfb7e93c.js",
-    "index.html": "/keep-learning/index.html",
-    "main.b05ce0cf.css.map": "/keep-learning/static/css/main.b05ce0cf.css.map",
-    "main.bfb7e93c.js.map": "/keep-learning/static/js/main.bfb7e93c.js.map"
+    "main.css": "./static/css/main.b05ce0cf.css",
+    "main.js": "./static/js/main.bfb7e93c.js",
+    "index.html": "./index.html",
+    "main.b05ce0cf.css.map": "./static/css/main.b05ce0cf.css.map",
+    "main.bfb7e93c.js.map": "./static/js/main.bfb7e93c.js.map"
   },
   "entrypoints": [
     "static/css/main.b05ce0cf.css",
