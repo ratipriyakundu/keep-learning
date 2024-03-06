@@ -13,9 +13,9 @@ export default function Footer({data}) {
 								<div className="brand-logo">
 									<img alt="Footer Brand Icon" src={data.footer_logo && process.env.REACT_APP_HOME+data.footer_logo} width="60%" />
 								</div>
-								<p className="mt-4">
+								<p className="mt-2">
 									{" "}
-									keep learning is online learning platform. <br />
+									Petaflake is online learning platform. <br />
 									Download our apps to start learning
 								</p>
 								<div className="icons2 mt-3">
@@ -139,7 +139,7 @@ export default function Footer({data}) {
 					</div>
 				</div>
 				<div className="copyright">
-					<p>Created By SNDk @keeplearning</p>
+					<p>Created By SNDk @Petaflake</p>
 				</div>
 			</footer>
 		</>

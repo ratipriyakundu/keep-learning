@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import useHttp from "../Hooks/useHttp";
 import { ToastContainer, toast } from "react-toastify";
 const API = process.env.REACT_APP_API_URL;
@@ -6,6 +7,7 @@ const API = process.env.REACT_APP_API_URL;
 export default function Courses({ coursesData, setCallAPI, CallAPI }) {
   const { PostRequest } = useHttp();
   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
   const addTowishList = async (item) => {
     const { data } = await PostRequest(
       API + "addRemoveWishlist",
@@ -28,7 +30,11 @@ export default function Courses({ coursesData, setCallAPI, CallAPI }) {
         {coursesData && coursesData.length > 0 ? (
           coursesData.map((item, index) => {
             return (
-              <div className="instructors-name  col-md-3" key={index}>
+              <div className="instructors-name  col-md-3" key={index} onClick={() =>
+                navigate("/self-learning-course-details", {
+                  state: { item },
+                })
+              }>
                 {/* <a className="text-decoration-none" href="detail.html"> */}
                 <div className="text-center">
                   <img

@@ -212,7 +212,7 @@ export default function Home() {
                 <p className="text-center">Hey, let’s show you around</p>
                 <div className="main-content2">
                   <h2 className="py-3">
-                    <span style={{ color: "#021869" }}>Tour </span> the KLIT
+                    <span style={{ color: "#021869" }}>Tour </span> the Petaflake
                     <span style={{ color: "#021869" }}> modern</span> learning
                     platform
                   </h2>
@@ -313,7 +313,7 @@ export default function Home() {
                       The modern <span>learning</span> platform
                     </h2>
                     <p>
-                      keep learning is leading the necessary disruption of learning
+                      Petaflake is leading the necessary disruption of learning
                       platforms to unleash human potential with modern learning.
                       Learn more about the history of our platform that makes it
                       easy for schools, businesses, and individuals to create and
@@ -630,7 +630,7 @@ export default function Home() {
               <div className="container">
                 <div className="row mb-5" id="about-4">
                   <h2 className="mb-4">
-                    Why <span>KLIT</span> ?
+                    Why <span>Petaflake</span> ?
                   </h2>
                   <p className="mb-5">
                     We believe in fostering a holistic and dynamic workplace
@@ -740,7 +740,7 @@ export default function Home() {
               <div className="container">
                 <div className="row cnt">
                   <div className="col-md-8 cntcontent">
-                    <h2>Become an instructor at kLIT</h2>
+                    <h2>Become an instructor at Petaflake</h2>
                     <p>
                       Join one of the world’s largest online learning marketplaces.
                       <br />
@@ -752,7 +752,7 @@ export default function Home() {
                     </Link>
                   </div>
                   <div className="col-md-4" id="center-img">
-                    <img src="img/bfrem-logo.svg" alt="img" width="60%" />
+                    <img src="img/logo/logo-white.png" alt="img" width="60%" />
                   </div>
                 </div>
               </div>

@@ -38,7 +38,7 @@ const AddSelfLearningCourse = () => {
         setCategoryData(dataObject.category);
         setLanguageList(dataObject.language);
         setTopicsData(dataObject.topic);
-    },[]);
+    }, []);
     // Function to add a new dynamic input
     const addCourseContent = () => {
         if (formData.CourseContent.length <= 3) {
@@ -104,7 +104,7 @@ const AddSelfLearningCourse = () => {
     };
     // end function dynamic input
     const handleChange = async (event) => {
-        const { name, type, value } = event.target;
+        const { name, type } = event.target;
 
         // Handle non-file inputs
         if (
@@ -113,6 +113,7 @@ const AddSelfLearningCourse = () => {
             name === "CourseContentVideo" ||
             name === "studentsLearn"
         ) {
+            const { value } = event.target;
             const index = Number(event.target.dataset.index);
             const newArray = formData[name].map((item, i) =>
                 i === index
@@ -130,12 +131,48 @@ const AddSelfLearningCourse = () => {
             }));
         } else {
             // Handle other inputs
-            setFormData((prevData) => ({
-                ...prevData,
-                [name]: type === "file" ? value : value, // files[0]
-            }));
+            if (type === "file") {
+                const { files } = event.target;
+                const file = files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        const base64 = reader.result.split(",")[1];
+                        const extensionMatch = file.name.match(/\.([^.]+)$/);
+                        const extension = extensionMatch[1].toLowerCase();
+                        setFormData((prevData) => ({
+                            ...prevData,
+                            [name]: {
+                                type: extension,
+                                content: base64,
+                                size: getFileSizeInMB(file),
+                            },
+                        }));
+                    };
+
+                    reader.readAsDataURL(file);
+                }
+            }else {
+                const { value } = event.target;
+                setFormData((prevData) => ({
+                    ...prevData,
+                    [name]: value,
+                }));
+            }
         }
     };
+
+    function getFileSizeInMB(file) {
+        const fileSizeInBytes = file.size;
+        const fileSizeInMB = fileSizeInBytes / (1024 * 1024);
+
+        if (fileSizeInMB > 5) {
+            toast.error("Please select max 5 MB File only");
+            return false;
+        }
+        return fileSizeInMB.toFixed(2);
+    }
+
     const handleSubmit = async () => {
         for (const [key] of Object.entries(formData)) {
             if (formData[key] === "") {
@@ -148,21 +185,10 @@ const AddSelfLearningCourse = () => {
         });
         if (data?.responseCode === 1) {
             toast.success(data?.responseText);
-            navigate("/instructor-profile/instCourses");
+            navigate("/instructor-profile/self-learning-courses");
         } else {
             toast.error(data?.responseText);
         }
-    };
-
-    const clickElement = (ref) => {
-        ref.current.dispatchEvent(
-            new MouseEvent("click", {
-                view: window,
-                bubbles: true,
-                cancelable: true,
-                buttons: 1,
-            })
-        );
     };
     return (
         <>
@@ -500,19 +526,10 @@ const AddSelfLearningCourse = () => {
                                 <input
                                     type="file"
                                     id="Add-response"
-                                    className="course-topic-field d-none"
+                                    className="course-topic-field"
                                     name="image"
                                     onChange={handleChange}
-                                    ref={imageRef}
                                 />
-                                <button
-                                    id="Add-response"
-                                    type="button"
-                                    onClick={() => clickElement(imageRef)}
-                                    className="mb-2 text-center pointer-event"
-                                >
-                                    Select Image
-                                </button>
                             </div>
                         </div>
                         <div className="publish-courses1">

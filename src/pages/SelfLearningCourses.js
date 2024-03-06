@@ -131,14 +131,14 @@ export default function SelfLearningCourses() {
                 </select>
               </div>
             </div>
-            <div className="row mt-5 ">
+            <div className="row mt-5 d-flex">
               {dataObject && dataObject.course_list && dataObject.course_list.length > 0
-                ? dataObject.course_list.map((items, index) => {
+                ? dataObject.course_list.map((item, index) => {
                   return (
                     <div className="col-md-4" key={index}>
-                      <div className="box-Corse-Duration">
-                        <h3>{items.title}</h3>
-                        <p>{items.about.length > 70 ? items.about.substring(0,70) : items.about}</p>
+                      <div className="box-Corse-Duration course-card">
+                        <h3>{item.title}</h3>
+                        <p>{item.about.length > 70 ? item.about.substring(0,70) : item.about}</p>
                         <div className="d-flex mt-3">
                           <img
                             alt="img"
@@ -146,7 +146,7 @@ export default function SelfLearningCourses() {
                             id="img-Duration"
                             className="rounded float-start"
                           />
-                          <p>Corse Duration : {items.courseDuration} Min </p>
+                          <p>Corse Duration : {item.courseDuration} Min </p>
                         </div>
                         <div className="d-flex mt-2 mb-2">
                           <img
@@ -155,7 +155,7 @@ export default function SelfLearningCourses() {
                             id="img-Duration"
                             className="rounded float-start"
                           />
-                          <p>Corse Fees : ₹ {items.courseFee}</p>
+                          <p>Corse Fees : ₹ {item.courseFee}</p>
                         </div>
                         <div className="d-flex mt-2 mb-0">
                           <img
@@ -164,7 +164,7 @@ export default function SelfLearningCourses() {
                             id="img-Duration"
                             className="rounded float-start"
                           />
-                          <p>Instructors : {items.userId.name}</p>
+                          <p>Instructors : {item.userId.name}</p>
                         </div>
                         <div className="d-flex align-items-center mt-2">
                           <div class="Star2">
@@ -191,7 +191,7 @@ export default function SelfLearningCourses() {
                             className="btn btn-outline-primary mt-3"
                             onClick={() =>
                               navigate("/self-learning-course-details", {
-                                state: { items },
+                                state: { item },
                               })
                             }
                           >

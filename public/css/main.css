@@ -810,6 +810,11 @@ p.text-1 {
 
 .instructors-name {
   margin-top: 50px;
+  cursor: pointer;
+}
+
+.course-card {
+  min-height: 315px;
 }
 
 p.text-0 {

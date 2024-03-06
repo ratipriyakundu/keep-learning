@@ -20,7 +20,7 @@ export default function Selflearningcoursedetailspage() {
   const location = useLocation();
   const API = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("token");
-  const CourseDetails = location?.state?.items;
+  const CourseDetails = location?.state?.item;
   const prevObjectData = { ...dataObject };
 
   const addToCart = async (items) => {
