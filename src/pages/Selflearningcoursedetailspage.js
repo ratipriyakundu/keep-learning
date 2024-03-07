@@ -113,7 +113,7 @@ export default function Selflearningcoursedetailspage() {
                 <a className="text-decoration-none" href="detail.html">
                   <h2>{CourseDetails.title}</h2>
                 </a>
-                <p style={{ fontSize: "20px", color: "#5E5E5E" }}>
+                <p style={{ fontSize: "20px", color: "#5E5E5E" }} className="mt-3">
                   {CourseDetails.about.length > 120 ? CourseDetails.about.substring(0, 120) : CourseDetails.about}
                 </p>
                 <div className="d-flex">
@@ -127,7 +127,7 @@ export default function Selflearningcoursedetailspage() {
                       />
                       <h6 className="">00</h6>
                     </div>
-                    <div className="block d-flex align-items-center">
+                    <div className="block d-flex align-items-center mt-3">
                       <img
                         src="../../img/Vector22.svg"
                         id="image-Vector"
@@ -148,7 +148,7 @@ export default function Selflearningcoursedetailspage() {
                       </div>
                       <h6>Ratings</h6>
                     </div>
-                    <div className="block">
+                    <div className="block mt-3">
                       <h6 className="text-22 ">Language: English</h6>
                     </div>
                   </div>
@@ -161,7 +161,7 @@ export default function Selflearningcoursedetailspage() {
                   <button
                     type="button"
                     id="button-Add-to-cart"
-                    className="btn btn-primary w-100"
+                    className="btn btn-primary w-100 mt-5"
                     onClick={() => addToCart(CourseDetails)}
                   >
                     Add to cart
@@ -170,7 +170,7 @@ export default function Selflearningcoursedetailspage() {
                   <button
                     type="button"
                     id="button-Buy-now"
-                    className="btn btn-outline-primary w-100"
+                    className="btn btn-outline-primary w-100 mt-4"
                     onClick={() => addToCart(CourseDetails)}
                   >
                     Buy now
@@ -189,26 +189,30 @@ export default function Selflearningcoursedetailspage() {
             <img src="../img/fixed_message.png" alt="" />
           </div>
           <div className="About-this-course">
-            <h2 style={{ color: "#021969" }}>About this course</h2>
-            <p>{CourseDetails.about}</p>
+            <h3 style={{ color: "#021969" }}>About this course</h3>
+            <p className="mt-3">{CourseDetails.about}</p>
           </div>
-          <hr className="mt-5" />
+          <div className="mt-5" style={{ borderTop: "1px solid #ddd ", marginLeft: 'auto', marginRight: 'auto' }}></div>
         </div>
       </div>
       {/* <!-- About this course end --> */}
 
       {/* <!-- Course content --> */}
       <div className="container mt-5">
-        <div className="row d-flex justify-content-center align-items-center">
-          <div className="col-md-7 total-detail-box">
+        <div className="row">
+          <div className="col-md-8 total-detail-box">
             <h2 className="bc">Course content</h2>
             <ul className="accordion" id="accordion">
               {CourseDetails?.CourseContent?.map((item, index) => (
                 <li key={index}>
-                  <input type="radio" name="accordion" id="first" />
-                  <label htmlFor="first" className="d-flex align-items-center">
-                    {item.fileName}
-                    <span className="px-5 mx-5 time"> 00 min</span>
+                  <input type="radio" name="accordion" id={`courseContent_` + index} />
+                  <label htmlFor={`courseContent_` + index} className="w-100 d-flex position-relative">
+                    <div style={{width: '60%'}}>
+                      {item.fileName}
+                    </div>
+                    <div>
+                      <span className="time no-wrap position-absolute right-0"> {CourseDetails.courseDuration} min</span>
+                    </div>
                   </label>
                   <div className="main-content">
                     <p>
@@ -219,12 +223,15 @@ export default function Selflearningcoursedetailspage() {
                       type specimen book.
                     </p>
                   </div>
+                  {CourseDetails?.CourseContent?.length !== (index + 1) ? (
+                    <div className="mt-3" style={{ borderTop: "1px solid #ddd ", marginLeft: 'auto', marginRight: '17%', width: '85%' }}></div>
+                  ) : ''}
                 </li>
               ))}
             </ul>
           </div>
-          <div className="col-md-4 ">
-            <div className="detail-box d-flex flex-column justify-content-center align-items-center">
+          <div className="col-md-4">
+            <div className="detail-box mt-5 d-flex flex-column justify-content-center align-items-center">
               <h2 className="bb">What you'll learn</h2>
               <div className="learning-points">
                 {CourseDetails?.studentsLearn?.map((item, index) => (
@@ -246,7 +253,7 @@ export default function Selflearningcoursedetailspage() {
             </div>
           </div>
         </div>
-        <hr className="mt-5" />
+        <div className="mt-5" style={{ borderTop: "1px solid #ddd ", marginLeft: 'auto', marginRight: 'auto' }}></div>
       </div>
       {/* <!-- Course content end--> */}
 
@@ -388,7 +395,7 @@ export default function Selflearningcoursedetailspage() {
               </div>
             </div>
             <div className="col-md-6 w-100">
-              <hr className="my-5" />
+              <div className="mt-5" style={{ borderTop: "1px solid #ddd ", marginLeft: 'auto', marginRight: 'auto' }}></div>
               <div className="px-5 mb-5 review-section">
                 <div className="d-flex justify-content-between align-items-center mt-5 mb-4">
                   <h6 className="add-review"> Review (00)</h6>
@@ -442,21 +449,21 @@ export default function Selflearningcoursedetailspage() {
             </div>
           </div>
         </div>
-        <hr className="my-5" />
+        <div className="mt-5" style={{ borderTop: "1px solid #ddd ", marginLeft: 'auto', marginRight: 'auto' }}></div>
       </div>
       {/* <!-- Review end --> */}
 
       {/* <!-- instructor --> */}
-      <div className="container">
+      <div className="container mt-5">
         <div className="row">
           <div className="col-md-6">
             <div className="row m-0">
               <h2 className="bc">Instructor</h2>
               <div className="instructor-section">
-                <div className="instructor-Name col-7">
-                  <h2 className="b-text">Instructor Name</h2>
+                <div className="instructor-Name col-6">
+                  <h2 className="b-text">{CourseDetails.userId.name}</h2>
                 </div>
-                <div className="d-flex col-5">
+                <div className="d-flex col-6">
                   <div className="me-4 d-flex align-items-center col">
                     <img
                       src="../../img/Vector.svg"
@@ -513,11 +520,10 @@ export default function Selflearningcoursedetailspage() {
             <div className="row">
               <div className="col-md-6">
                 <a className="text-decoration-none" href="detail.html">
-                  <h2>Learn PHP Programming From Scratch</h2>
+                  <h2>{CourseDetails.title}</h2>
                 </a>
-                <p style={{ fontSize: "20px", color: "#5E5E5E" }}>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting
+                <p style={{ fontSize: "20px", color: "#5E5E5E" }} className="mt-3">
+                  {CourseDetails.about.length > 120 ? CourseDetails.about.substring(0, 120) : CourseDetails.about}
                 </p>
                 <div className="d-flex">
                   <div className="Ratings-a d-flex flex-column  ">
@@ -530,14 +536,14 @@ export default function Selflearningcoursedetailspage() {
                       />
                       <h6 className="">00</h6>
                     </div>
-                    <div className="block d-flex align-items-center">
+                    <div className="block d-flex align-items-center mt-3">
                       <img
                         src="../../img/Vector22.svg"
                         id="image-Vector"
                         className="rounded float-start"
                         alt="..."
                       />
-                      <h6 className="">Instructors Name</h6>
+                      <h6 className="">{CourseDetails.userId.name}</h6>
                     </div>
                   </div>
                   <div className="Ratings-a d-flex flex-column ">
@@ -551,17 +557,21 @@ export default function Selflearningcoursedetailspage() {
                       </div>
                       <h6>Ratings</h6>
                     </div>
+                    <div className="block mt-3">
+                      <h6 className="text-22 ">Language: English</h6>
+                    </div>
                   </div>
                 </div>
               </div>
               <div className="box-78 col-md-6">
                 <div>
-                  <h6>$00.00 Price</h6>
-                  <p>$00.00 % Discount</p>
+                  <h6>Course Fees : ₹ {CourseDetails.courseFee}</h6>
+                  <p>Discount : ₹ {CourseDetails.discount}</p>
                   <button
                     type="button"
                     id="button-Add-to-cart"
-                    className="btn btn-primary w-100"
+                    className="btn btn-primary w-100 mt-5"
+                    onClick={() => addToCart(CourseDetails)}
                   >
                     Add to cart
                   </button>
@@ -569,7 +579,8 @@ export default function Selflearningcoursedetailspage() {
                   <button
                     type="button"
                     id="button-Buy-now"
-                    className="btn btn-outline-primary w-100"
+                    className="btn btn-outline-primary w-100 mt-4"
+                    onClick={() => addToCart(CourseDetails)}
                   >
                     Buy now
                   </button>

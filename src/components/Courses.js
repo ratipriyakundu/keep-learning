@@ -38,7 +38,7 @@ export default function Courses({ coursesData, setCallAPI, CallAPI }) {
                 {/* <a className="text-decoration-none" href="detail.html"> */}
                 <div className="text-center">
                   <img
-                    src="img\image23.png"
+                    src={item && item.image !== null ? process.env.REACT_APP_HOME + item.image : "../img/profile.png"}
                     className=""
                     id="image23"
                     alt="img"

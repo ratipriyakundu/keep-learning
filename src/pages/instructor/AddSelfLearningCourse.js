@@ -190,6 +190,7 @@ const AddSelfLearningCourse = () => {
             toast.error(data?.responseText);
         }
     };
+    console.log(formData)
     return (
         <>
             <ToastContainer autoClose={1000} />

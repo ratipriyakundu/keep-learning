@@ -21,7 +21,7 @@ export default function Courseslistviewloop({ courses }) {
                   alt="img"
                   width="100%"
                   height="auto"
-                  src="../img/learnphp.svg"
+                  src={items && items.image !== null ? process.env.REACT_APP_HOME + items.image : "../img/profile.png"}
                 />
               </div>
               <div className="col-md-6" id="courcesdt">

@@ -808,6 +808,11 @@ p.text-1 {
   padding: 8px 2px;
 }
 
+.time {
+  text-wrap: nowrap;
+  top: 12px;
+}
+
 .instructors-name {
   margin-top: 50px;
   cursor: pointer;
