@@ -80,7 +80,7 @@ function App() {
           </Route>
 
           <Route path="/student-profile" element={<StudentProfile />}>
-            <Route path="stdCourses" element={<StdCourses />} />
+            <Route path="my-courses" element={<StdCourses />} />
             <Route path="myprofile" element={<StdMyprofile />} />
             <Route path="edit-profile" element={<StdEditprofile />} />
             <Route path="stdCart" element={<StdCart />} />

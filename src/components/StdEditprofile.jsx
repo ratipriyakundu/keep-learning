@@ -1,13 +1,26 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import useHttp from "../Hooks/useHttp";
 import { ToastContainer, toast } from "react-toastify";
-const API = process.env.REACT_APP_API_URL;
-const HOME = process.env.REACT_APP_HOME;
+
 const StdEditProfile = () => {
-  const token = localStorage.getItem("token");
+
+  const { PostRequest } = useHttp();
+  const dataObject = useOutletContext();
+  const [profile, setProfile] = useState(dataObject.profile);
+  const [name, setName] = useState(dataObject.name);
+  const [mobile, setMobile] = useState(dataObject.mobile);
+  const [email, setEmail] = useState(dataObject.email);
+  const [Headline, setHeadline] = useState(dataObject.headline);
+  const [Id, setId] = useState(dataObject._id);
+  const navigate = useNavigate();
   const myRef = useRef(null);
+
+  const token = localStorage.getItem("token");
+  const API = process.env.REACT_APP_API_URL;
+  const HOME = process.env.REACT_APP_HOME;
+
   const clickElement = (ref) => {
     ref.current.dispatchEvent(
       new MouseEvent("click", {
@@ -17,14 +30,7 @@ const StdEditProfile = () => {
       })
     );
   };
-  const { PostRequest } = useHttp();
-  const [profile, setProfile] = useState({});
-  const [name, setName] = useState("");
-  const [mobile, setMobile] = useState("");
-  const [email, setEmail] = useState("");
-  const [Headline, setHeadline] = useState("");
-  const [Id, setId] = useState("");
-  const navigate = useNavigate();
+
   const profileDetails = useCallback(async () => {
     const { data } = await PostRequest(
       API + "profileDetails",
@@ -40,14 +46,12 @@ const StdEditProfile = () => {
       setHeadline(data?.responseData.Headline);
     }
   }, []);
+
   useEffect(() => {
     if (!token) {
       navigate("/");
-    } else {
-      profileDetails();
     }
-    return profileDetails;
-  }, [profileDetails]);
+  }, []);
 
   const handleSubmit = async () => {
     const FormData = {
@@ -114,10 +118,8 @@ const StdEditProfile = () => {
           <div className="profile1-2">
             <div className="text-center">
               <img
-                src={profile ? profile : "../img/profile.png"}
-                className="w-50 "
-                id="profile1-1"
-                alt="..."
+                src={profile !== null ? profile : "../img/profile.png"}
+                className="rounded-profile-image"
               />
               <input
                 onChange={handleFileChange}
@@ -248,7 +250,7 @@ const StdEditProfile = () => {
                   fontWeight: 600,
                   fontSize: "18px",
                   color: "#021969",
-                  padding:"10px"
+                  padding: "10px"
                 }}
                 className="btn mt-5"
                 id="button-p2"

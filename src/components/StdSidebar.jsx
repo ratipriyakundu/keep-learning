@@ -30,9 +30,9 @@ const StdSidebar = () => {
           My profile
         </Link>
         <Link
-          to="/student-profile/stdCourses"
+          to="/student-profile/my-courses"
           className={
-            location.pathname === "/student-profile/stdCourses"
+            location.pathname === "/student-profile/my-courses"
               ? "nav-link active"
               : "nav-link"
           }

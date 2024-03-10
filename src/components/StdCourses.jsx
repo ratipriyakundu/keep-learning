@@ -1,28 +1,23 @@
+import React, { useEffect, useState } from "react";
+import { useOutletContext, useNavigate } from "react-router-dom";
 import StdCourseList from "./StdCourseList";
 import StdCourseLiveList from "./StdCourseLiveList";
-import React, { useEffect, useState } from "react";
-import useHttp from "../Hooks/useHttp";
-const API = process.env.REACT_APP_API_URL;
-const StdCourses = () => {
-  const token = localStorage.getItem("token");
-  const { PostRequest } = useHttp();
-  const [CartData, setCartData] = useState([]);
-  const getmyCourses = async () => {
-    const { data } = await PostRequest(
-      API + "myCourses",
-      {},
-      {
-        authorization: "Bearer " + token,
-      }
-    );
 
-    if (data?.responseCode === 1) {
-      setCartData(data?.responseData);
-    }
-  };
+const StdCourses = () => {
+
+  const dataObject = useOutletContext();
+  const [CartData, setCartData] = useState([]);
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
-    getmyCourses();
+    if (!token) {
+      navigate("/");
+    }else {
+      setCartData(dataObject.cart_data);
+    }
   }, []);
+
   const myStyle = {
     button: {
       backgroundColor: "#021969",

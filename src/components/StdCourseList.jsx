@@ -38,6 +38,7 @@ const StdCourseList = ({ CartData }) => {
       objectFit: "cover",
     },
   };
+  console.log(CartData)
   return (
     <>
       <div className="row mt-5">

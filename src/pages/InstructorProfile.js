@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useHttp from "../Hooks/useHttp";
 import { Outlet } from "react-router-dom";
 import Loader from "../components/Loader/Loader";
@@ -14,6 +14,7 @@ export default function InstructorProfile() {
 	const [dataObject, setDataObject] = useState({});
 	const location = useLocation();
 	const { PostRequest } = useHttp();
+	const navigate = useNavigate();
 	const token = localStorage.getItem("token");
 	const API = process.env.REACT_APP_API_URL;
 	const HOME = process.env.REACT_APP_HOME;
@@ -134,7 +135,11 @@ export default function InstructorProfile() {
 	}
 
 	useEffect(() => {
-		fetchSettings();
+		if(!token) {
+			navigate('/');
+		}else {
+			fetchSettings();
+		}
 	}, [location]);
 	return (
 		<>
