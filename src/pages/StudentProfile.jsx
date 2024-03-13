@@ -10,6 +10,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 const StudentProfile = () => {
 
 	const [isLoading, setIsLoading] = useState(true);
+	const [showSideBar, setShowSideBar] = useState(true);
 	const [dataObject, setDataObject] = useState({});
 	const location = useLocation();
 	const { PostRequest } = useHttp();
@@ -22,6 +23,7 @@ const StudentProfile = () => {
 	//Fetch All Settings
 	const fetchSettings = async () => {
 		setIsLoading(true);
+		setShowSideBar(true);
 		var { data } = await PostRequest(
 			API + "allSettings",
 			{},
@@ -37,8 +39,20 @@ const StudentProfile = () => {
 			if (location.pathname === '/student-profile/edit-profile') {
 				fetchProfileData();
 			}
-			if (location.pathname === '/student-profile/my-courses') {
+			if (location.pathname === '/student-profile/self-learning-courses') {
 				fetchMyCourses();
+			}
+			if (location.pathname === '/student-profile/cart') {
+				fetchCart();
+			}
+			if (location.pathname === '/student-profile/checkout') {
+				fetchCart();
+			}
+			if (location.pathname === '/student-profile/self-learning-course-details') {
+				setShowSideBar(false);
+				setTimeout(() => {
+					setIsLoading(false);
+				}, 1000);
 			}
 		}
 	}
@@ -76,27 +90,36 @@ const StudentProfile = () => {
 				authorization: "Bearer " + token,
 			}
 		);
-		if (data?.responseCode) {
-			if (data?.responseData) {
-				prevObjectData['cart_data'] = data?.responseData;
-			} else {
-				prevObjectData['cart_data'] = [];
-			}
-			setDataObject(prevObjectData);
-			setTimeout(() => {
-				setIsLoading(false);
-			}, 1000);
-		}
+		prevObjectData['cart_data'] = data && data?.responseCode && data?.responseData ? data?.responseData : [];
+		setDataObject(prevObjectData);
+		setTimeout(() => {
+			setIsLoading(false);
+		}, 1000);
 	};
-	
+
+	//Fetch Cart
+	const fetchCart = async () => {
+		const { data } = await PostRequest(
+			API + "CartList",
+			{},
+			{
+				authorization: "Bearer " + token,
+			}
+		);
+		prevObjectData['cart_list'] = data && data?.responseCode && data?.responseData ? data?.responseData : [];
+		setDataObject(prevObjectData);
+		setTimeout(() => {
+			setIsLoading(false);
+		}, 1000);
+	}
+
 	useEffect(() => {
-		if(!token) {
+		if (!token) {
 			navigate('/');
-		}else {
+		} else {
 			fetchSettings();
 		}
 	}, [location]);
-
 	return isLoading === true ? <Loader /> : (
 		<>
 			<GoogleOAuthProvider clientId="752198572885-4g2el7a6670gkj9ed1qtdhltt56hnn3t.apps.googleusercontent.com">
@@ -105,7 +128,7 @@ const StudentProfile = () => {
 			<div className="container-fluid mt-5">
 				<div className="row">
 					<div className="d-flex align-items-start">
-						<StdSidebar />
+						{showSideBar === true ? <StdSidebar /> : ''}
 						<Outlet context={dataObject} />
 					</div>
 				</div>

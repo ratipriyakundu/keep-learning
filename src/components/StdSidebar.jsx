@@ -30,9 +30,9 @@ const StdSidebar = () => {
           My profile
         </Link>
         <Link
-          to="/student-profile/my-courses"
+          to="/student-profile/self-learning-courses"
           className={
-            location.pathname === "/student-profile/my-courses"
+            location.pathname === "/student-profile/self-learning-courses"
               ? "nav-link active"
               : "nav-link"
           }
@@ -40,10 +40,10 @@ const StdSidebar = () => {
           My Courses
         </Link>
         <Link
-          to="/student-profile/stdCart"
+          to="/student-profile/cart"
           className={
-            location.pathname === "/student-profile/stdCart" ||
-            location.pathname === "/student-profile/stdCheckout"
+            location.pathname === "/student-profile/cart" ||
+            location.pathname === "/student-profile/checkout"
               ? "nav-link active"
               : "nav-link"
           }

@@ -9,7 +9,7 @@ import Footer from "../components/Footer";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 export default function Home() {
-  
+
   const [isLoading, setIsLoading] = useState(true);
   const [dataObject, setDataObject] = useState({});
   const [courseLoading, setCourseLoading] = useState(false);
@@ -69,10 +69,10 @@ export default function Home() {
       }
     );
     if (data?.responseCode === 1) {
-      if(data?.responseData.length > 4 && data?.responseData.length < 8) {
-        setCoursesData(data?.responseData.slice(0,4));
-      }else {
-        setCoursesData(data?.responseData.slice(0,8));
+      if (data?.responseData.length > 4 && data?.responseData.length < 8) {
+        setCoursesData(data?.responseData.slice(0, 4));
+      } else {
+        setCoursesData(data?.responseData.slice(0, 8));
       }
       prevObjectData['home_course_data'] = data?.responseData;
       setDataObject(prevObjectData);
@@ -104,7 +104,11 @@ export default function Home() {
         authorization: "Bearer " + token,
       });
       if (data?.responseCode === 1) {
-        setCoursesData(data?.responseData);
+        if (data?.responseData.length > 4 && data?.responseData.length < 8) {
+          setCoursesData(data?.responseData.slice(0, 4));
+        } else {
+          setCoursesData(data?.responseData.slice(0, 8));
+        }
         setTimeout(function () {
           setCourseLoading(false);
         }, 1000);

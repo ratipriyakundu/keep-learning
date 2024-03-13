@@ -3127,7 +3127,7 @@ a#button-Cors:hover {
 
 #accordion li label::before {
   content: url("../img/accordion_active.png");
-  margin-right: 100px;
+  margin-right: 20px;
   font-size: 24px;
   font-weight: 600;
 }
@@ -3161,8 +3161,8 @@ input[type="radio"] {
 #accordion input[type="radio"]:checked+label::before {
   content: url("../img/accordion_active.png");
   rotate: 180deg;
-  margin-right: 100px;
-  margin-top: 23px;
+  margin-right: 20px;
+  margin-top: 20px;
 }
 
 .students-also-searching-for .swiper-button-prev,

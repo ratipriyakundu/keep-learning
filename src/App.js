@@ -23,20 +23,21 @@ import AccountSetting from "./components/AccountSetting";
 import Performance from "./components/Performance";
 import Help from "./components/Help";
 import StudentProfile from "./pages/StudentProfile";
-import StdCourses from "./components/StdCourses";
+import StudentSelfLearningCourses from "./pages/student/StudentSelfLearningCourses";
 import StdMyprofile from "./components/StdMyprofile";
 import StdAccountSetting from "./components/StdAccountSetting";
-import StdCart from "./components/StdCart";
+import Cart from "./components/Cart";
 import StdEditprofile from "./components/StdEditprofile";
 import StdHelp from "./components/StdHelp";
 import StdNotification from "./components/StdNotification";
 import StdWishlist from "./components/StdWishlist";
-import StdCheckout from "./components/StdCheckout";
+import Checkout from "./components/Checkout";
 import EditCoursesForm from "./components/EditCoursesForm";
 import LiveOnlineClassDetails from "./pages/LiveOnlineClassDetails";
 import SelflearningCourseDetailPages from "./pages/SelflearningCourseDetailPages";
 import GoogleLogin from "./pages/GoogleLogin";
 import EditLiveCoursesForm from "./components/EditLiveCoursesForm";
+import StudentSelfLearningCourseDetails from "./pages/student/StudentSelfLearningCourseDetails";
 
 function App() {
   return (
@@ -80,15 +81,16 @@ function App() {
           </Route>
 
           <Route path="/student-profile" element={<StudentProfile />}>
-            <Route path="my-courses" element={<StdCourses />} />
+            <Route path="self-learning-courses" element={<StudentSelfLearningCourses />} />
             <Route path="myprofile" element={<StdMyprofile />} />
             <Route path="edit-profile" element={<StdEditprofile />} />
-            <Route path="stdCart" element={<StdCart />} />
+            <Route path="cart" element={<Cart />} />
+            <Route path="checkout" element={<Checkout />} />
+            <Route path="self-learning-course-details" element={<StudentSelfLearningCourseDetails />} />
             <Route path="stdWishlist" element={<StdWishlist />} />
             <Route path="stdNotification" element={<StdNotification />} />
             <Route path="stdAccountSet" element={<StdAccountSetting />} />
             <Route path="stdHelp" element={<StdHelp />} />
-            <Route path="stdCheckout" element={<StdCheckout />} />
           </Route>
 
           <Route
