@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -11,11 +11,13 @@ import Footer from "../components/Footer";
 import { ToastContainer, toast } from "react-toastify";
 import useHttp from "../Hooks/useHttp";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { cartCountContext } from "../contexts/CartCountProvider";
 
 export default function Selflearningcoursedetailspage() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [dataObject, setDataObject] = useState({});
+  const [cartCount, setCartCount] = useContext(cartCountContext);
   const { PostRequest } = useHttp();
   const location = useLocation();
   const API = process.env.REACT_APP_API_URL;
@@ -30,6 +32,7 @@ export default function Selflearningcoursedetailspage() {
       { authorization: "Bearer " + token }
     );
     if (data?.responseCode === 1) {
+      fetchCartCount();
       toast.success(data?.responseText);
     } else {
       toast.error(data?.responseText);
@@ -71,6 +74,18 @@ export default function Selflearningcoursedetailspage() {
       prevObjectData['course_list'] = data?.responseData;
       setDataObject(prevObjectData);
       setIsLoading(false);
+    }
+  }
+
+  //Fetch Cart Count
+  const fetchCartCount = async () => {
+    const { data } = await PostRequest(
+      API + "cartCount",
+      {},
+      { authorization: "Bearer " + token }
+    );
+    if (data?.responseCode === 1) {
+      setCartCount(data?.responseData);
     }
   }
 

@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { cartCountContext } from "../contexts/CartCountProvider";
 import useHttp from "../Hooks/useHttp";
 import Loader from "./Loader/Loader";
 
-const HOME = process.env.REACT_APP_HOME;
-const API = process.env.REACT_APP_API_URL;
-
 const Cart = () => {
 
-  const dataObject = useOutletContext();
+  let dataObject = useOutletContext();
   const navigate = useNavigate();
+  const HOME = process.env.REACT_APP_HOME;
+  const API = process.env.REACT_APP_API_URL;
+  const prevObjectData = { ...dataObject };
   const myStyle = {
     button: {
       width: "300px",
@@ -69,6 +70,7 @@ const Cart = () => {
 
   const { PostRequest } = useHttp();
   const [CartData, setCartData] = useState([]);
+  const [CartCount, setCartCount] = useContext(cartCountContext);
   const [isReLoadingCartList, setIsReLoadingCartList] = useState(true);
 
   const DeleteCart = async (item) => {
@@ -98,17 +100,28 @@ const Cart = () => {
       }
     );
     setCartData(data && data?.responseCode && data?.responseData ? data?.responseData : []);
+    fetchCartCount();
     setTimeout(() => {
       setIsReLoadingCartList(false);
     }, 1000);
   }
 
+  //Fetch Cart Count
+  const fetchCartCount = async () => {
+    const { data } = await PostRequest(
+      API + "cartCount",
+      {},
+      { authorization: "Bearer " + token }
+    );
+    if (data?.responseCode === 1) {
+      setCartCount(data?.responseData);
+    }
+  }
+
   useEffect(() => {
     setCartData(dataObject.cart_list);
     setIsReLoadingCartList(false);
-  },[]);
-
-  console.log(dataObject)
+  }, []);
 
   var subtotal = 0;
   if (CartData.length > 0) {
@@ -158,7 +171,7 @@ const Cart = () => {
                               <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
                             </svg>
                           </span>
-                          <span className="dl"> {item.userId.name} </span>
+                          <span className="dl"> {item.CourseId.userId.name} </span>
                         </div>
                         <p className="text-1 mx-0">{item.CourseId.about}</p>
                         <div className="d-flex justify-content-start  mt-3 gap-1">

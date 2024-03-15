@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useOutletContext } from "react-router-dom";
 import useHttp from "../Hooks/useHttp";
 import { ToastContainer, toast } from "react-toastify";
+import { cartCountContext } from "../contexts/CartCountProvider";
 const HOME = process.env.REACT_APP_HOME;
 const API = process.env.REACT_APP_API_URL;
 
@@ -13,6 +14,7 @@ const Checkout = () => {
   const { PostRequest } = useHttp();
   const [CourseId, setCourseId] = useState([]);
   const [reload, setReload] = useState(false);
+  const [cartCount, setCartCount] = useContext(cartCountContext);
 
   const PlaceOrder = async () => {
     const uniqueArray = [...new Set(CourseId)];
@@ -30,11 +32,24 @@ const Checkout = () => {
     );
     if (data?.responseCode === 1) {
       setReload(true);
+      fetchCartCount();
       toast.success(data?.responseText);
     } else {
       toast.error(data?.responseText);
     }
   };
+
+  //Fetch Cart Count
+  const fetchCartCount = async () => {
+    const { data } = await PostRequest(
+      API + "cartCount",
+      {},
+      { authorization: "Bearer " + token }
+    );
+    if (data?.responseCode === 1) {
+      setCartCount(data?.responseData);
+    }
+  }
 
   useEffect(() => {
     for (const courseId of dataObject.cart_list) {

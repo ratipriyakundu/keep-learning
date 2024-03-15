@@ -38,80 +38,83 @@ import SelflearningCourseDetailPages from "./pages/SelflearningCourseDetailPages
 import GoogleLogin from "./pages/GoogleLogin";
 import EditLiveCoursesForm from "./components/EditLiveCoursesForm";
 import StudentSelfLearningCourseDetails from "./pages/student/StudentSelfLearningCourseDetails";
+import CartCountProvider from "./contexts/CartCountProvider";
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/GoogleLogin" element={<GoogleLogin />} />
-          <Route
-            path="/self-learning-courses"
-            element={<SelfLearningCourses />}
-          />
-          <Route path="/Beinstructor" element={<Beinstructor />} />
-
-          <Route
-            path="/Selflearningcoursedtailpages"
-            element={<SelflearningCourseDetailPages />}
-          />
-          <Route
-            path="/Liveonlinedtailpage"
-            element={<Liveonlinedtailpage />}
-          />
-
-          <Route path="/about" element={<About />} />
-          <Route path="/contact-us" element={<ContactUs />} />
-          <Route path="/instructor-profile" element={<InstructorProfile />}>
-            <Route path="self-learning-courses" element={<InstructorSelfLearningCourses />} />
-            <Route path="myprofile" element={<Myprofile />} />
-            <Route path="edit-profile" element={<Editprofile />} />
-            <Route path="add-self-learning-course" element={<AddSelfLearningCourse />} />
-            <Route path="edit-courses-form" element={<EditCoursesForm />} />
+        <CartCountProvider>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/GoogleLogin" element={<GoogleLogin />} />
             <Route
-              path="edit-live-courses-form"
-              element={<EditLiveCoursesForm />}
+              path="/self-learning-courses"
+              element={<SelfLearningCourses />}
             />
-            <Route path="courses" element={<Courseslistviewloop />} />
-            <Route path="instNotification" element={<Notification />} />
-            <Route path="instPerformance" element={<Performance />} />
-            <Route path="instAccountSetting" element={<AccountSetting />} />
-            <Route path="instHelp" element={<Help />} />
-          </Route>
+            <Route path="/Beinstructor" element={<Beinstructor />} />
 
-          <Route path="/student-profile" element={<StudentProfile />}>
-            <Route path="self-learning-courses" element={<StudentSelfLearningCourses />} />
-            <Route path="myprofile" element={<StdMyprofile />} />
-            <Route path="edit-profile" element={<StdEditprofile />} />
-            <Route path="cart" element={<Cart />} />
-            <Route path="checkout" element={<Checkout />} />
-            <Route path="self-learning-course-details" element={<StudentSelfLearningCourseDetails />} />
-            <Route path="stdWishlist" element={<StdWishlist />} />
-            <Route path="stdNotification" element={<StdNotification />} />
-            <Route path="stdAccountSet" element={<StdAccountSetting />} />
-            <Route path="stdHelp" element={<StdHelp />} />
-          </Route>
+            <Route
+              path="/Selflearningcoursedtailpages"
+              element={<SelflearningCourseDetailPages />}
+            />
+            <Route
+              path="/Liveonlinedtailpage"
+              element={<Liveonlinedtailpage />}
+            />
 
-          <Route
-            path="/edit-instructor-profile"
-            element={<EditInstructorProfile />}
-          />
-          <Route
-            path="/instructor-profile-confirmed"
-            element={<InstructorProfileConfirmed />}
-          />
-          <Route
-            exact
-            path={`/self-learning-course-details`}
-            element={<Selflearningcoursedetailspage />}
-          />
-          <Route
-            exact
-            path={`/live-online-course-details`}
-            element={<LiveOnlineClassDetails />}
-          />
-        </Routes>
+            <Route path="/about" element={<About />} />
+            <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="/instructor-profile" element={<InstructorProfile />}>
+              <Route path="self-learning-courses" element={<InstructorSelfLearningCourses />} />
+              <Route path="myprofile" element={<Myprofile />} />
+              <Route path="edit-profile" element={<Editprofile />} />
+              <Route path="add-self-learning-course" element={<AddSelfLearningCourse />} />
+              <Route path="edit-courses-form" element={<EditCoursesForm />} />
+              <Route
+                path="edit-live-courses-form"
+                element={<EditLiveCoursesForm />}
+              />
+              <Route path="courses" element={<Courseslistviewloop />} />
+              <Route path="instNotification" element={<Notification />} />
+              <Route path="instPerformance" element={<Performance />} />
+              <Route path="instAccountSetting" element={<AccountSetting />} />
+              <Route path="instHelp" element={<Help />} />
+            </Route>
+
+            <Route path="/student-profile" element={<StudentProfile />}>
+              <Route path="self-learning-courses" element={<StudentSelfLearningCourses />} />
+              <Route path="myprofile" element={<StdMyprofile />} />
+              <Route path="edit-profile" element={<StdEditprofile />} />
+              <Route path="cart" element={<Cart />} />
+              <Route path="checkout" element={<Checkout />} />
+              <Route path="self-learning-course-details" element={<StudentSelfLearningCourseDetails />} />
+              <Route path="stdWishlist" element={<StdWishlist />} />
+              <Route path="stdNotification" element={<StdNotification />} />
+              <Route path="stdAccountSet" element={<StdAccountSetting />} />
+              <Route path="stdHelp" element={<StdHelp />} />
+            </Route>
+
+            <Route
+              path="/edit-instructor-profile"
+              element={<EditInstructorProfile />}
+            />
+            <Route
+              path="/instructor-profile-confirmed"
+              element={<InstructorProfileConfirmed />}
+            />
+            <Route
+              exact
+              path={`/self-learning-course-details`}
+              element={<Selflearningcoursedetailspage />}
+            />
+            <Route
+              exact
+              path={`/live-online-course-details`}
+              element={<LiveOnlineClassDetails />}
+            />
+          </Routes>
+        </CartCountProvider>
       </Router>
     </div>
   );

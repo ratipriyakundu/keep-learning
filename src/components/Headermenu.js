@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useContext } from "react";
 import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
@@ -7,8 +7,11 @@ import useHttp from "../Hooks/useHttp";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { cartCountContext } from "../contexts/CartCountProvider";
 const API = process.env.REACT_APP_API_URL;
+
 export default function Headermenu({ data }) {
+
   const [isChecked, setIsChecked] = useState(false);
   const { PostRequest } = useHttp();
   const [email, setEmail] = useState("");
@@ -16,8 +19,10 @@ export default function Headermenu({ data }) {
   const [UserName, setUserName] = useState("");
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
+  const [cartCount, setCartCount] = useContext(cartCountContext);
   const location = useLocation();
   const navigate = useNavigate();
+
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
@@ -150,6 +155,18 @@ export default function Headermenu({ data }) {
       setProfile(data?.responseData.profile !== null ? process.env.REACT_APP_HOME + data?.responseData.profile : null);
     }
   }, [token]);
+
+  const fetchCartCount = async () => {
+    const { data } = await PostRequest(
+      API + "cartCount",
+      {},
+      { authorization: "Bearer " + token }
+    );
+    if (data?.responseCode === 1) {
+      setCartCount(data?.responseData);
+    }
+  }
+
   useEffect(() => {
     if (!token) {
       //navigate("/");
@@ -158,6 +175,11 @@ export default function Headermenu({ data }) {
     }
     return profileDetails;
   }, [navigate, profileDetails, token]);
+
+  useEffect(() => {
+    fetchCartCount();
+  });
+
   const Logout = () => {
     localStorage.clear();
     setMegamenu(false);
@@ -265,7 +287,7 @@ export default function Headermenu({ data }) {
                     width={70}
                     height={70}
                   />
-                  <span className="cart-badge border badge bg-light text-dark position-absolute">0</span>
+                  <span className="cart-badge border badge bg-light text-dark position-absolute">{cartCount}</span>
                 </div>
                 <div className="cart-login-btn px-2">
                   <img
