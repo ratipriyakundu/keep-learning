@@ -332,18 +332,6 @@ export default function Mobileheadermenu() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                <div className="form-check mt-3">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    checked={isChecked}
-                    onChange={handleCheckboxChange}
-                    id="flexCheckDefault"
-                  />
-                  <label className="form-check-label" for="flexCheckDefault">
-                    Login as Student
-                  </label>
-                </div>
                 <hr
                   className="hr-text my-4"
                   data-content="OR"
@@ -431,18 +419,6 @@ export default function Mobileheadermenu() {
                     defaultValue={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                </div>
-                <div className="form-check mt-3">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    checked={isChecked}
-                    onChange={handleCheckboxChange}
-                    id="flexCheckDefault"
-                  />
-                  <label className="form-check-label" for="flexCheckDefault">
-                    Register as Student
-                  </label>
                 </div>
 
                 <hr className="hr-text my-4" data-content="OR" />

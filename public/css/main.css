@@ -4370,3 +4370,11 @@ form.mainform2 input {
   background-color: #021869 !important;
   color: #fff !important;
 }
+
+.cart-badge {
+  top: -4px;
+  right: 19px;
+  border-radius: 50%;
+  min-width: 10px;
+  min-height: 20px;
+}

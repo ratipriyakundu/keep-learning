@@ -8,7 +8,7 @@ import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { toast } from "react-toastify";
 const API = process.env.REACT_APP_API_URL;
-export default function Headermenu({data}) {
+export default function Headermenu({ data }) {
   const [isChecked, setIsChecked] = useState(false);
   const { PostRequest } = useHttp();
   const [email, setEmail] = useState("");
@@ -149,7 +149,7 @@ export default function Headermenu({data}) {
       setEmail(data?.responseData.email);
       setProfile(data?.responseData.profile !== null ? process.env.REACT_APP_HOME + data?.responseData.profile : null);
     }
-  }, [ token]);
+  }, [token]);
   useEffect(() => {
     if (!token) {
       //navigate("/");
@@ -172,7 +172,7 @@ export default function Headermenu({data}) {
         id="desktopmenu"
       >
         <Link className="navbar-brand Brand-logo" to="/">
-          <img alt="Header Brand Icon" src={data.header_logo && process.env.REACT_APP_HOME+data.header_logo} />
+          <img alt="Header Brand Icon" src={data.header_logo && process.env.REACT_APP_HOME + data.header_logo} />
         </Link>
         <button
           className="navbar-toggler"
@@ -187,21 +187,21 @@ export default function Headermenu({data}) {
         </button>
 
         {location.pathname !== "/instructor-profile/myprofile" &&
-        location.pathname !== "/instructor-profile/instCourses" &&
-        location.pathname !== "/instructor-profile/edit-profile" &&
-        location.pathname !== "/instructor-profile/instNotification" &&
-        location.pathname !== "/instructor-profile/instPerformance" &&
-        location.pathname !== "/instructor-profile/instAccountSetting" &&
-        location.pathname !== "/instructor-profile/instHelp" &&
-        location.pathname !== "/instructor-profile/edit-courses-form" &&
-        location.pathname !== "/student-profile/edit-profile" &&
-        location.pathname !== "/student-profile/stdCourses" &&
-        location.pathname !== "/student-profile/stdCart" &&
-        location.pathname !== "/student-profile/stdCheckout" &&
-        location.pathname !== "/student-profile/stdWishlist" &&
-        location.pathname !== "/student-profile/stdNotification" &&
-        location.pathname !== "/student-profile/stdAccountSet" &&
-        location.pathname !== "/student-profile/stdHelp" ? (
+          location.pathname !== "/instructor-profile/instCourses" &&
+          location.pathname !== "/instructor-profile/edit-profile" &&
+          location.pathname !== "/instructor-profile/instNotification" &&
+          location.pathname !== "/instructor-profile/instPerformance" &&
+          location.pathname !== "/instructor-profile/instAccountSetting" &&
+          location.pathname !== "/instructor-profile/instHelp" &&
+          location.pathname !== "/instructor-profile/edit-courses-form" &&
+          location.pathname !== "/student-profile/edit-profile" &&
+          location.pathname !== "/student-profile/stdCourses" &&
+          location.pathname !== "/student-profile/stdCart" &&
+          location.pathname !== "/student-profile/stdCheckout" &&
+          location.pathname !== "/student-profile/stdWishlist" &&
+          location.pathname !== "/student-profile/stdNotification" &&
+          location.pathname !== "/student-profile/stdAccountSet" &&
+          location.pathname !== "/student-profile/stdHelp" ? (
           <div className="collapse navbar-collapse " id="navbarText">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0" id="topNavBar">
               <li className="nav-item">
@@ -255,16 +255,29 @@ export default function Headermenu({data}) {
                 </button>
               </div>
             ) : (
-              <div className="cart-login-btn px-4">
-                <img
-                  onClick={() => setMegamenu(!megamenu)}
-                  src={profile ? profile : "../img/profile.png"}
-                  alt="profile"
-                  id="profile1-1"
-                  width={70}
-                  height={70}
-                />
-              </div>
+              <>
+                <div className="cart-login-btn px-4 position-relative">
+                  <img
+                    onClick={() => navigate('/student-profile/cart')}
+                    src="../img/basket.png"
+                    alt="profile"
+                    id="profile1-1"
+                    width={70}
+                    height={70}
+                  />
+                  <span className="cart-badge border badge bg-light text-dark position-absolute">0</span>
+                </div>
+                <div className="cart-login-btn px-2">
+                  <img
+                    onClick={() => setMegamenu(!megamenu)}
+                    src={profile ? profile : "../img/profile.png"}
+                    alt="profile"
+                    id="profile1-1"
+                    width={70}
+                    height={70}
+                  />
+                </div>
+              </>
             )}
           </div>
         ) : (
@@ -272,27 +285,27 @@ export default function Headermenu({data}) {
             <a
               href={
                 location.pathname !== "/instructor-profile/myprofile" &&
-                location.pathname !== "/instructor-profile/instCourses" &&
-                location.pathname !== "/instructor-profile/edit-profile" &&
-                location.pathname !== "/instructor-profile/instNotification" &&
-                location.pathname !== "/instructor-profile/instPerformance" &&
-                location.pathname !==
+                  location.pathname !== "/instructor-profile/instCourses" &&
+                  location.pathname !== "/instructor-profile/edit-profile" &&
+                  location.pathname !== "/instructor-profile/instNotification" &&
+                  location.pathname !== "/instructor-profile/instPerformance" &&
+                  location.pathname !==
                   "/instructor-profile/instAccountSetting" &&
-                location.pathname !== "/instructor-profile/edit-courses-form" &&
-                location.pathname !== "/instructor-profile/instHelp"
+                  location.pathname !== "/instructor-profile/edit-courses-form" &&
+                  location.pathname !== "/instructor-profile/instHelp"
                   ? "/instructor-profile/edit-profile"
                   : "/student-profile/edit-profile"
               }
               className="btn btn-custom2"
             >
               {location.pathname !== "/instructor-profile/myprofile" &&
-              location.pathname !== "/instructor-profile/instCourses" &&
-              location.pathname !== "/instructor-profile/edit-profile" &&
-              location.pathname !== "/instructor-profile/instNotification" &&
-              location.pathname !== "/instructor-profile/instPerformance" &&
-              location.pathname !== "/instructor-profile/instAccountSetting" &&
-              location.pathname !== "/instructor-profile/instHelp" &&
-              location.pathname !== "/instructor-profile/edit-courses-form"
+                location.pathname !== "/instructor-profile/instCourses" &&
+                location.pathname !== "/instructor-profile/edit-profile" &&
+                location.pathname !== "/instructor-profile/instNotification" &&
+                location.pathname !== "/instructor-profile/instPerformance" &&
+                location.pathname !== "/instructor-profile/instAccountSetting" &&
+                location.pathname !== "/instructor-profile/instHelp" &&
+                location.pathname !== "/instructor-profile/edit-courses-form"
                 ? "Switch To Instructor"
                 : "Switch To Student"}
             </a>
@@ -310,7 +323,7 @@ export default function Headermenu({data}) {
             height={50}
           />
           <div className="d-block px-3">
-            <h6 className="m-0">{name.length > 18 ? name.substring(0, 18)+'...' : name}</h6>
+            <h6 className="m-0">{name.length > 18 ? name.substring(0, 18) + '...' : name}</h6>
             <p>{email.length > 18 ? email.substring(0, 18) + '...' : email}</p>
           </div>
         </div>
@@ -397,18 +410,6 @@ export default function Headermenu({data}) {
                     defaultValue={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                </div>
-                <div className="form-check mt-3">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    checked={isChecked}
-                    onChange={handleCheckboxChange}
-                    id="flexCheckDefault"
-                  />
-                  <label className="form-check-label" for="flexCheckDefault">
-                    Login as Student
-                  </label>
                 </div>
                 <hr className="hr-text my-4" data-content="OR" />
 
@@ -514,18 +515,6 @@ export default function Headermenu({data}) {
                     defaultValue={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                </div>
-                <div className="form-check mt-3">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    checked={isChecked}
-                    onChange={handleCheckboxChange}
-                    id="flexCheckDefault"
-                  />
-                  <label className="form-check-label" for="flexCheckDefault">
-                    Register as Student
-                  </label>
                 </div>
 
                 <hr className="hr-text my-4" data-content="OR" />
