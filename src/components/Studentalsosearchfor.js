@@ -59,7 +59,7 @@ export default function Studentalsosearchfor(props) {
             >
               {props.courses.map((item, index) => {
                 return (
-                  <SwiperSlide>
+                  <SwiperSlide key={index}>
                     <div className="member-slider-wrap ">
                       <div
                         className="box-Duration rounded-3 "

@@ -20,6 +20,17 @@ export default function Coursefilter() {
     setFilterList(data?.responseData);
   }
 
+  const myStyle = {
+    categoryName: {
+      fontWeight: 500,
+      border: 0,
+      fontSize: "16px",
+      color: "#021869",
+      cursor: "pointer",
+      marginBottom: "20px"
+    }
+  }
+
   useEffect(() => {
     GetFilterList();
   }, []);
@@ -41,43 +52,52 @@ export default function Coursefilter() {
           </h2>
           <div
             id="collapseOne"
-            className="accordion-collapse collapse"
+            className="accordion-collapse collapse show"
             aria-labelledby="headingOne"
             data-bs-parent="#accordionExample"
           >
             <div className="accordion-body p-0 ">
               <div className="accordion accordion-flush" id="faqlist">
                 {filterList?.category?.Data.map((items, index) => (
-                  <div key={index} className="accordion-item">
-                    <h2 className="accordion-header">
-                      <button
-                        className="accordion-button"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target={`#faq-content-${index}`}
+                  items && items.SubCategorys && items.SubCategorys.length ? (
+                    <div key={index} className="accordion-item">
+                      <h2 className="accordion-header">
+                        <button
+                          className="accordion-button"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target={`#faq-content-${index}`}
+                        >
+                          {items.categoryName.toUpperCase()}
+                        </button>
+                      </h2>
+                      <div
+                        id={`faq-content-${index}`}
+                        className="accordion-collapse collapse"
+                        data-bs-parent="#faqlist"
                       >
-                        {items.categoryName.toUpperCase()}
-                      </button>
-                    </h2>
-                    <div
-                      id={`faq-content-${index}`}
-                      className="accordion-collapse collapse"
-                      data-bs-parent="#faqlist"
-                    >
-                      <div className="accordion-body">
-                        <ul className="p-0 text-decoration-none list-unstyled">
-                          <li>
-                            <a
-                              className="text-muted text-decoration-none"
-                              href="/"
-                            >
-                              DevOps
-                            </a>
-                          </li>
-                        </ul>
+                        <div className="accordion-body">
+                          <ul className="p-0 text-decoration-none list-unstyled">
+                            {items.SubCategorys.map((item, index) => (
+                              <li key={`subCategory-${index}`} className="mb-2">
+                                <a
+                                  className="text-muted text-decoration-none"
+                                  href="/"
+                                >
+                                  {item.subcategoryName.toUpperCase()}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  ) : (
+                    <h6 style={myStyle.categoryName}>
+                      {items.categoryName.toUpperCase()}
+                    </h6>
+                  )
+
                 ))}
               </div>
             </div>
@@ -99,7 +119,7 @@ export default function Coursefilter() {
           </h2>
           <div
             id="collapseTwo"
-            className="accordion-collapse collapse"
+            className="accordion-collapse collapse show"
             aria-labelledby="headingTwo"
             data-bs-parent="#accordionExample"
           >
@@ -111,7 +131,7 @@ export default function Coursefilter() {
                   defaultValue=""
                   id="flexCheckDefault"
                 />
-                <label className="form-check-label" for="flexCheckDefault">
+                <label className="form-check-label" htmlFor="flexCheckDefault">
                   <div className="d-flex">
                     <img src="img/fullstar.svg" alt="." />
                     <img src="img/fullstar.svg" alt="." />
@@ -129,7 +149,7 @@ export default function Coursefilter() {
                   defaultValue=""
                   id="flexCheckChecked"
                 />
-                <label className="form-check-label" for="flexCheckChecked">
+                <label className="form-check-label" htmlFor="flexCheckChecked">
                   <div className="d-flex">
                     <img src="img/fullstar.svg" alt="." />
                     <img src="img/fullstar.svg" alt="." />
@@ -147,7 +167,7 @@ export default function Coursefilter() {
                   defaultValue=""
                   id="flexCheckChecked2"
                 />
-                <label className="form-check-label" for="flexCheckChecked2">
+                <label className="form-check-label" htmlFor="flexCheckChecked2">
                   <div className="d-flex">
                     <img src="img/fullstar.svg" alt="." />
                     <img src="img/fullstar.svg" alt="." />
@@ -177,7 +197,7 @@ export default function Coursefilter() {
           </h2>
           <div
             id="collapseThree"
-            className="accordion-collapse collapse"
+            className="accordion-collapse collapse show"
             aria-labelledby="headingThree"
             data-bs-parent="#accordionExample"
           >
@@ -190,7 +210,7 @@ export default function Coursefilter() {
                     defaultValue={items._id}
                     id="English"
                   />
-                  <label className="form-check-label" for="English">
+                  <label className="form-check-label" htmlFor="English">
                     <div className="d-flex">
                       <span className="startext px-2">
                         {items.TopicsName.toUpperCase()}
@@ -218,7 +238,7 @@ export default function Coursefilter() {
           </h2>
           <div
             id="collapsefour"
-            className="accordion-collapse collapse"
+            className="accordion-collapse collapse show"
             aria-labelledby="headingfour"
             data-bs-parent="#accordionExample"
           >
@@ -231,7 +251,7 @@ export default function Coursefilter() {
                     defaultValue={items._id}
                     id="English"
                   />
-                  <label className="form-check-label" for="English">
+                  <label className="form-check-label" htmlFor="English">
                     <div className="d-flex">
                       <span className="startext px-2">
                         {items.languageName.toUpperCase()}
@@ -260,7 +280,7 @@ export default function Coursefilter() {
           </h2>
           <div
             id="collapsefive"
-            className="accordion-collapse collapse"
+            className="accordion-collapse collapse show"
             aria-labelledby="headingfive"
             data-bs-parent="#accordionExample"
           >
@@ -272,7 +292,7 @@ export default function Coursefilter() {
                   defaultValue=""
                   id="first-hour"
                 />
-                <label className="form-check-label" for="first-hour">
+                <label className="form-check-label" htmlFor="first-hour">
                   <div className="d-flex">
                     <span className="startext px-2">0-0 hours</span>
                   </div>
@@ -285,7 +305,7 @@ export default function Coursefilter() {
                   defaultValue=""
                   id="second-hour"
                 />
-                <label className="form-check-label" for="second-hour">
+                <label className="form-check-label" htmlFor="second-hour">
                   <div className="d-flex">
                     <span className="startext px-2">0-0 hours</span>
                   </div>
@@ -298,7 +318,7 @@ export default function Coursefilter() {
                   defaultValue=""
                   id="third-hour"
                 />
-                <label className="form-check-label" for="third-hour">
+                <label className="form-check-label" htmlFor="third-hour">
                   <div className="d-flex">
                     <span className="startext px-2">0-0 hours</span>
                   </div>
@@ -324,7 +344,7 @@ export default function Coursefilter() {
           </h2>
           <div
             id="collapsefive"
-            className="accordion-collapse collapse"
+            className="accordion-collapse collapse show"
             aria-labelledby="headingfive"
             data-bs-parent="#accordionExample"
           >

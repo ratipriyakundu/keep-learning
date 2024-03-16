@@ -5,7 +5,7 @@ export default function Footer({data}) {
 	return (
 		<>
 			{/* <!-- footer --> */}
-			<footer>
+			<footer className="border-top">
 				<div className="container footer">
 					<div className="row">
 						<div className="col-md-4">

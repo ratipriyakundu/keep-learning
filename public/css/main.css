@@ -1220,7 +1220,6 @@ p.text-f {
 
 .accordion-button {
   border-radius: 0px !important;
-  padding-left: 5px !important;
 }
 
 .accordion-button:not(.collapsed) {
@@ -1588,6 +1587,7 @@ hr {
   font-size: 16px;
   font-weight: 600;
   color: #021969;
+  height: 50px;
 }
 
 .right-border {
@@ -2766,7 +2766,7 @@ h2#headingOne button {
 /* sub accodion  */
 
 #faqlist .accordion-button {
-  padding: 0px 21px;
+  padding: 0px 0px;
   font-weight: 500;
   border: 0;
   font-size: 16px;
@@ -4378,4 +4378,12 @@ form.mainform2 input {
   border-radius: 50%;
   min-width: 10px;
   min-height: 20px;
+}
+
+.Mui-selected {
+  background-color: #021869 !important;
+}
+
+.MuiPagination-ul {
+  margin: auto !important;
 }
